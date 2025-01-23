@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000/api",
+    baseUrl: "https://byte-messenger-api.onrender.com/api",
     credentials: "include",
   }),
   endpoints: (builder) => ({
@@ -111,5 +111,5 @@ export const {
   useUpdateuserMutation,
   useGetConversationMutation,
   useCreateGroupMutation,
-  useLazySuccessQuery
+  useLazySuccessQuery,
 } = apiSlice;

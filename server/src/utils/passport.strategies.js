@@ -9,7 +9,7 @@ passport.use(
   new LocalStrategy(async (email, password, done) => {
     try {
       const user = await User.findOne({ email });
-        console.log(user,email,password)
+      console.log(user, email, password);
       if (!user) {
         return done(null, false, { message: "Incorrect userName." });
       }
@@ -33,7 +33,8 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:8000/api/v1/auth/google/callback",
+      callbackURL:
+        "https://byte-messenger-api.onrender.com/api/v1/auth/google/callback",
       scope: [
         "profile",
         "email",

@@ -122,7 +122,7 @@ const Signin = () => {
   const handleGoogleLogin = () => {
     try {
       // Open Google OAuth in a new window
-      window.open("http://localhost:8000/api/v1/auth/google", "_self");
+      window.open("https://byte-messenger-api.onrender.com/api/v1/auth/google", "_self");
     } catch (error) {
       console.error("Error opening Google OAuth window:", error);
     }

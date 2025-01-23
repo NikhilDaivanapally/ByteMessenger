@@ -27,7 +27,7 @@ function App() {
     const fetchCurrentLoggedUser = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8000/api/v1/auth/login/success",
+          "https://byte-messenger-api.onrender.com/api/v1/auth/login/success",
           {
             method: "GET",
             credentials: "include",
@@ -89,7 +89,7 @@ function App() {
         try {
           // Redirect to login if user is not authenticated
           const response = await fetch(
-            "http://localhost:8000/api/v1/auth/login/success",
+            "https://byte-messenger-api.onrender.com/api/v1/auth/login/success",
             {
               method: "GET",
               credentials: "include",
