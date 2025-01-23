@@ -10,7 +10,7 @@ import streamifier from "streamifier";
 import redis from "./db/redis.js";
 import { createAdapter } from "@socket.io/redis-streams-adapter";
 import { Message } from "./models/message.model.js";
-import Friendship from "./models/friendShip.model.js";
+import Friendship from "./models/friendship.model.js";
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
