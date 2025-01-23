@@ -12,7 +12,7 @@ import {
   updateProfile,
 } from "../controllers/user.controller.js";
 import { ensureAuthenticated } from "../middelwares/auth.middleware.js";
-import Friendship from "../models/friendShip.model.js";
+import Friendship from "../models/friendship.model.js";
 
 const router = Router();
 

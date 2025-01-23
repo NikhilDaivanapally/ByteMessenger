@@ -2,7 +2,7 @@
 
 // import FriendRequest from "../models/friendRequest.js";
 import mongoose from "mongoose";
-import Friendship from "../models/friendShip.model.js";
+import Friendship from "../models/friendship.model.js";
 import { Message } from "../models/message.model.js";
 import OneToManyMessage from "../models/oneToManyMessage.model.js";
 import OneToOneMessage from "../models/oneToOneMessage.model.js";
