@@ -7,6 +7,8 @@ import { gridFSBucket } from "./db/connectToMongodb.js";
 import passport from "./utils/passport.strategies.js";
 import session from "express-session";
 import { RedisStore } from "connect-redis";
+import { ObjectId } from "mongodb";
+import redis from "./db/redis.js";
 // import redis from "./db/redis.js";
 const app = express();
 
@@ -38,9 +40,9 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(passport.authenticate("session"));
+app.set("trust proxy", true);
 
-import { ObjectId } from "mongodb";
-import redis from "./db/redis.js";
 
 app.get("/audio/:id", (req, res) => {
   const fileId = req.params.id;
