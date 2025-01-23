@@ -230,7 +230,7 @@ const forgotpassword = async (req, res, next) => {
     // Generate the random reset Token hash it and set it in the DB and also set the Reset token expiry time for 10 min
     const resetToken = await user.createPasswordResetToken();
     await user.save({ validateBeforeSave: false });
-    const resetURL = `http://localhost:5173/reset-password?token=${resetToken}`;
+    const resetURL = `https://byte-messenger.vercel.app/reset-password?token=${resetToken}`;
     console.log(resetToken, "resetToken");
     // send the resetURL to the email
     await sendMail({
@@ -314,16 +314,16 @@ const logout = async (req, res) => {
 const googleLogin = (req, res, next) => {
   passport.authenticate("google", (err, user, info) => {
     if (err || !user) {
-      return res.redirect("http://localhost:5173/login");
+      return res.redirect("https://byte-messenger.vercel.app/login");
     }
 
     req.login(user, (err) => {
       if (err) {
-        return res.redirect("http://localhost:5173/login");
+        return res.redirect("https://byte-messenger.vercel.app/login");
       }
 
       // Redirect to your frontend with a success query param
-      return res.redirect("http://localhost:5173");
+      return res.redirect("https://byte-messenger.vercel.app");
     });
   })(req, res, next); // Call the passport function with req, res, and next
 };

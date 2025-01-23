@@ -6,13 +6,13 @@ import userRoute from "./routes/user.route.js";
 import { gridFSBucket } from "./db/connectToMongodb.js";
 import passport from "./utils/passport.strategies.js";
 import session from "express-session";
-import {RedisStore} from "connect-redis"
+import { RedisStore } from "connect-redis";
 // import redis from "./db/redis.js";
 const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["https://byte-messenger.vercel.app"],
     credentials: true,
   })
 );
