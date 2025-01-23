@@ -5,28 +5,28 @@ import User from "../models/user.model.js";
 
 // Local Strategy
 
-passport.use(
-  new LocalStrategy(async (email, password, done) => {
+passport.use(new LocalStrategy({
+    usernameField: 'email' // Use email instead of username
+}, 
+async (email, password, done) => {
     try {
-      const user = await User.findOne({ email });
-      console.log(user, email, password);
-      if (!user) {
-        return done(null, false, { message: "Incorrect userName." });
-      }
+        const user = await User.findOne({ email }); 
 
-      const isPasswordValid = await user.isPasswordCorrect(password);
+        if (!user) {
+            return done(null, false, { message: 'Incorrect email' });
+        }
 
-      if (!isPasswordValid) {
-        return done(null, false, { message: "Incorrect password." });
-      }
+        const isMatch = await user.isPasswordCorrect(password); 
 
-      return done(null, user);
-    } catch (error) {
-      return done(error);
+        if (!isMatch) {
+            return done(null, false, { message: 'Incorrect password' });
+        }
+
+        return done(null, user); 
+    } catch (err) {
+        return done(err);
     }
-  })
-);
-
+}));
 // Google Strategy
 passport.use(
   new GoogleStrategy(
