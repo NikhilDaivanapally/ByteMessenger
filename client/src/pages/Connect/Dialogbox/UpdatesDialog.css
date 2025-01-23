@@ -1,0 +1,173 @@
+.Connect_page {
+  width: 100%;
+  height: 100%;
+  color: var(--title-color);
+  padding: 2rem 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  position: relative;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  list-style: none;
+}
+.tabs li {
+  margin: auto;
+  padding-block: 0.3rem;
+  cursor: pointer;
+  user-select: none;
+}
+.tabs p:active {
+  border-bottom: 3.4px solid var(--bg-msg-end-color);
+}
+ul .bar {
+  position: absolute;
+  display: none;
+  height: 2.5px;
+  border-radius: 3px;
+  background-color: var(--bg-msg-end-color);
+  transition: all 0.2s ease;
+  z-index: 4;
+}
+
+.content {
+  flex: 1;
+  overflow: auto;
+  position: relative;
+  /* background-color: red; */
+  padding-top: 1rem;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.content::-webkit-scrollbar {
+  appearance: none;
+  width: 0.4rem;
+  background-color: transparent;
+}
+.content::-webkit-scrollbar-thumb {
+  background-color: var(--bg-msg-end-color);
+  border-radius: 10px;
+}
+
+.content .users_container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+.no_friend_req,
+.no_friends,
+.no_users {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.user {
+  width: 50%;
+  background-color: var(--bg-msg-start-color);
+  display: flex;
+  gap: 1rem;
+  padding: 0.6rem;
+  align-items: center;
+  border-radius: 30px;
+}
+.user .img_contatiner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: relative;
+}
+.online_offline {
+  width: 10px;
+  height: 10px;
+  background-color: var(--bg-msg-end-color);
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  border-radius: 50%;
+  border: 2px solid;
+  border-color: var(--bg-color);
+}
+
+.user .msg,
+.user .remove {
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+.user .controls {
+  margin-left: auto;
+  display: flex;
+  gap: 0.9rem;
+}
+.user .img_contatiner .avatar {
+  width: 100%;
+  height: 100%;
+}
+.user .img_contatiner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.user .info p:nth-child(1) {
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+.user .info p:nth-child(2) {
+  font-size: 0.8rem;
+  color: grey;
+}
+
+.user button {
+  background-color: transparent;
+  height: fit-content;
+  border: none;
+  font-size: 0.9rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 30px;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--bg-msg-end-color);
+  /* color: #6366f1; */
+  text-decoration: underline;
+}
+.user button:hover {
+  background-color: var(--bg-msg-end-color);
+  color: white;
+}
+.user .AddTo_friend:active {
+  scale: 0.95;
+}
+
+
+
+
+
+
+
+
+@media (max-width: 767px) {
+  .Connect_page {
+    width: 100%;
+    padding-inline: 1.5rem;
+    /* font-size: 0rem; */
+  }
+  .user {
+    width: 100%;
+    font-size: 0.8rem;
+  }
+}
+
+
+

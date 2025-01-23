@@ -1,0 +1,222 @@
+.userinfo_container {
+  width: 0px;
+  height: 100vh;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border-left: 1px solid #2c2f34;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 8;
+}
+.userinfo_container::-webkit-scrollbar {
+  appearance: none;
+  width: 0.4rem;
+  background-color: transparent;
+}
+.userinfo_container::-webkit-scrollbar-thumb {
+  background-color: var(--bg-msg-end-color);
+  border-radius: 10px;
+}
+.userinfo_container.open {
+  width: 350px;
+  overflow: auto;
+  padding: 0.8rem;
+}
+
+@media (max-width: 1260px) {
+  .userinfo_container {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .userinfo_container.open {
+    width: 100%;
+    overflow: auto;
+    padding: 0.8rem;
+  }
+}
+
+.Close_Sidebar_Conatiner {
+  font-size: 1.2rem;
+  width: 100%;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  /* border-bottom: 1px solid grey; */
+}
+.Close_Sidebar_Conatiner .Close_Sidebar {
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.Contact_details {
+  padding: 1rem;
+}
+
+.members_in_group {
+  padding: 1rem;
+}
+.member_Cont {
+  margin-top: 0.4rem;
+}
+.members_in_group .member {
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+  padding-block: 0.5rem;
+}
+.members_in_group .member .img_Cont {
+  width: 2rem;
+  height: 2rem;
+  overflow: hidden;
+}
+.members_in_group .member .img_Cont img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.members_in_group .member .member_info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.member_info .member_name {
+  font-size: 0.95rem;
+}
+.member_name .admin {
+  background-color: #eaeaff;
+  color: #6366f1;
+  font-size: 0.7rem;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.5rem;
+}
+.member_about {
+  font-size: 0.8rem;
+}
+.Contact_details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.Contact_details .profile_img {
+  width: 100px;
+  height: 100px;
+  border: 1px solid grey;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.Contact_details .Media_controls {
+  display: flex;
+  margin-top: 1rem;
+  align-items: center;
+  justify-content: center;
+  gap: 1.9rem;
+}
+.Contact_details .video,
+.Contact_details .Audio {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+}
+.about,
+.Media,
+.common_in {
+  padding-block: 1rem;
+  border-bottom: 1px solid grey;
+}
+
+.about .title {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+}
+
+.Media {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.Media .top_section {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Media .top_section .right_part {
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem;
+  gap: 0.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.right_part:hover {
+  background-color:var(--bg-msg-end-color);
+}
+.Media .top_section .right_part .view_Media {
+  font-size: 1.3rem;
+}
+
+.Media .bottom_section {
+  width: 100%;
+  /* height: 90px; */
+  padding: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  /* background-color: white; */
+}
+.Media .bottom_section img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  cursor: pointer;
+  /* background-color: black; */
+}
+.common_in {
+  padding-block: 0.5rem;
+}
+.common_in .common_count {
+  font-size: 0.85rem;
+}
+.group {
+  display: flex;
+  align-items: centere;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+.group img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.group .group_info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.group_title {
+  font-size: 0.95rem;
+}
+.group_members {
+  font-size: 0.7rem;
+}
+.SharedMsg_Container {
+  width: 320px;
+}

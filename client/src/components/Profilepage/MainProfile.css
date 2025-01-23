@@ -1,0 +1,199 @@
+.Profile_Container {
+  width: 100%;
+  height: 100%;
+  padding: 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.Profile_Container .profile_topSection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--color);
+  /* background-color: green; */
+}
+.Profile_Container .close_profile {
+  font-size: 2rem;
+  cursor: pointer;
+}
+.Profile_Container .close_profile:hover {
+  background-color: rgb(228, 228, 228);
+
+  border-radius: 50%;
+}
+.Profile_Container .profile_topSection p {
+  font-size: 1.3rem;
+}
+.profile_bottomSection {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+}
+.profile_bottomSection .edit_Profile {
+  width: 400px;
+
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.profile_bottomSection .edit_Profile .avatar_edit {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  color: var(--color);
+}
+.avatar_edit img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.avatar_edit .edit {
+  position: absolute;
+  bottom: 0%;
+  left: 93%;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+.avatar_edit .edit:hover {
+  background-color: var(--primary-hover);
+}
+.update_field {
+  width: 100%;
+  position: relative;
+}
+.update_field .input_name {
+  position: absolute;
+  top: 0%;
+  left: 0.5rem;
+  transform: translateY(-50%);
+  font-size: 0.8rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  background-color: var(--bg-color);
+  color: grey;
+  line-height: 0;
+  pointer-events: none;
+  padding-inline: 0.2rem;
+}
+
+.update_field .inpt {
+  width: 100%;
+  padding: 0.45rem 0.7rem;
+  border-radius: 0.2rem;
+  border: none;
+  background-color: var(--bg-color);
+  color: var(--color);
+  border: 1.2px solid #dcdfe4;
+  outline: 1.2px solid #dcdfe4;
+  transition: all 0.5s ease;
+  font-size: 0.95rem;
+}
+.update_field .inpt::placeholder,
+.update_field .txt::placeholder {
+  color: rgb(160, 160, 160);
+}
+.update_field .txt {
+  border-radius: 0.5rem;
+  width: 100%;
+  resize: vertical;
+  width: 100%;
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.2rem;
+  border: none;
+  background-color: var(--bg-color);
+  color: var(--color);
+  border: 1.2px solid #dcdfe4;
+  outline: 1.2px solid #dcdfe4;
+
+  transition: all 0.5s ease;
+}
+.update_field .inpt:hover,
+.update_field .txt:hover {
+  border-color: #6366f1;
+  outline-color: #6366f1;
+}
+.update_field .inpt:focus,
+.update_field .txt:focus {
+  border-color: #6366f1;
+  outline-color: #6366f1;
+}
+
+/* btn */
+.update_profileBtn {
+  width: 100%;
+  border: none;
+  background-color: #6366f1;
+  color: white;
+  height: 2.5rem;
+  /* padding: 0.335rem 0.5rem; */
+  border-radius: 0.2rem;
+  cursor: pointer;
+  transition: scale 0.3s ease-in;
+}
+.update_profileBtn:hover {
+  opacity: 0.9;
+}
+.update_profileBtn:active {
+  scale: 0.95;
+}
+
+/* loader */
+.loader {
+  width: 3.25em;
+  transform-origin: center;
+  /* animation: rotate4 2s linear infinite; */
+  scale: 0.8;
+}
+
+.spin {
+  fill: none;
+  stroke: white;
+  stroke-width: 3;
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: dash4 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate4 {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash4 {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 90, 200;
+    stroke-dashoffset: -35px;
+  }
+
+  100% {
+    stroke-dashoffset: -125px;
+  }
+}
+
+@media (max-width: 767px) {
+  .profile_bottomSection {
+    width: 90vw;
+  }
+  .profile_bottomSection .edit_Profile {
+    width: 90vw;
+  }
+  .update_field {
+    width: 100%;
+  }
+}
