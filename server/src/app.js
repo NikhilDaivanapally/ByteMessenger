@@ -27,6 +27,9 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // Set to true in production
+      domain: "https://byte-messenger.vercel.app",
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     },
   })
