@@ -183,11 +183,18 @@ const loginUser = async (req, res, next) => {
       if (err) {
         return next(err); // Handle error during the login process
       }
-      res.cookie("connect.sid", req.sessionID).status(200).json({
-        status: "success",
-        user: user,
-        message: "User logged in Successfully",
-      });
+      res
+        .cookie("connect.sid", req.sessionID, {
+          httpOnly: true,
+          sameSite: "None",
+          secure: true,
+        })
+        .status(200)
+        .json({
+          status: "success",
+          user: user,
+          message: "User logged in Successfully",
+        });
     });
   })(req, res, next); // Pass req, res, and next to the authenticate function
 };
