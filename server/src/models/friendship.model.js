@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { Schema } from "mongoose";
 const friendSchema = new mongoose.Schema({
   sender: {
     type: mongoose.Schema.ObjectId,

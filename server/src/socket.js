@@ -2,9 +2,7 @@ import { Server } from "socket.io";
 import http from "http";
 import { app } from "./app.js";
 import User from "./models/user.model.js";
-import Friendship from "./models/friendShip.model.js";
 import OneToOneMessage from "./models/oneToOneMessage.model.js";
-import OneToManyMessage from "./models/oneToManyMessage.model.js";
 import { v2 as cloudinary, v2 } from "cloudinary";
 import { gridFSBucket } from "./db/connectToMongodb.js";
 import { Readable } from "stream";
@@ -12,6 +10,7 @@ import streamifier from "streamifier";
 import redis from "./db/redis.js";
 import { createAdapter } from "@socket.io/redis-streams-adapter";
 import { Message } from "./models/message.model.js";
+import Friendship from "./models/friendShip.model.js";
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
