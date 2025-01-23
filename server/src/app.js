@@ -30,7 +30,7 @@ app.use(
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", // Set to true in production
       domain: "https://byte-messenger.vercel.app",
-      sameSite:'none',
+      sameSite: "none",
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     },
   })
@@ -71,5 +71,11 @@ app.get("/audio/:id", (req, res) => {
 
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/user", userRoute);
+app.use("/", (req, res) => {
+  return res.status(200).json({
+    status: "success",
+    message: "Your backend is working fine👍🏼",
+  });
+});
 
 export { app };
