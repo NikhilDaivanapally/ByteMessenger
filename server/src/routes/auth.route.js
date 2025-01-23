@@ -20,7 +20,7 @@ const router = Router();
 router.post("/register", upload.single("avatar"), RegisterUser, sendOTP);
 router.post("/send-otp", sendOTP);
 router.post("/verifyotp", verifyOTP);
-router.post("/login", passport.authenticate("local"), loginUser);
+router.post("/login", loginUser);
 router.post("/forgot-password", forgotpassword);
 router.post("/reset-password", resetpassword);
 
