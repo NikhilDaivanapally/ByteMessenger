@@ -411,6 +411,9 @@
   word-break: break-all;
 }
 
+.msg_info a{
+  color: rgb(92, 92, 255);
+}
 .userName {
   font-size: 0.65rem;
   font-weight: 500;
