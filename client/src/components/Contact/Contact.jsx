@@ -81,7 +81,7 @@ const Contact = () => {
           {MediaImgs.map((el, i) => (
             <img
               key={`img_${i}`}
-              src={el?.message?.PhotoUrl}
+              src={el?.message?.photoUrl}
               alt=""
               onClick={() => dispatch(setfullImagePreview({ fullviewImg: el }))}
             />
