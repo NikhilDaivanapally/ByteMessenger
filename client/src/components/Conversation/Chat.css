@@ -487,6 +487,7 @@
 }
 .Media_msg .Img_Container .Img_loader {
   position: absolute;
+  font-size: 1.8rem;
 }
 .Media_msg .Img_Container img {
   border-radius: 0.5rem;
