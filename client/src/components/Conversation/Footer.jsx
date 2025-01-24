@@ -64,7 +64,7 @@ const Footer = ({ setIsNonTextmsg, isNonTextmsg }) => {
     setInputMsg((prev) => prev + emoji);
     handleToggleEmojiPicker();
   };
-  const containsUrl = (text) => /(https?:\/\/[^\s]+)/g.test(text);
+  const containsUrl = (text) => /(https?:\/\/[^\s]+)/gi.test(text);
 
   const handleInputChange = (e) => setInputMsg(e.target.value);
   const handle_sharefiles = () => setSharefiles((prev) => !prev);

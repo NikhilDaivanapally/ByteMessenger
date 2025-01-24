@@ -3,10 +3,17 @@ import "./SharedMsgs.css";
 import { updateSidebarType } from "../../store/slices/appSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { MdKeyboardArrowLeft } from "react-icons/md";
-import { faker } from "@faker-js/faker";
 import { setfullImagePreview } from "../../store/slices/conversation";
 import SortMessages from "../../utils/SortMessages";
-import { AudioMsg, LinkMsg, MediaMsg } from "../Conversation/Msgtype";
+import { AudioMsg, LinkMsg } from "../Conversation/Msgtype";
+
+const NoMsgs = () => {
+  return (
+    <div className="no_messages_container">
+      <p>No Messages</p>
+    </div>
+  );
+};
 
 const Media = () => {
   const dispatch = useDispatch();
@@ -21,31 +28,35 @@ const Media = () => {
 
   return (
     <>
-      {DatesArray?.map((date, i) => {
-        return (
-          <div key={i} className="TimeWise_Media_Container">
-            <p>{date}</p>
-            <div className="Gallery">
-              {MessagesObject[date].map((el) => (
-                // <MediaMsg el={el}/>
-                <img
-                  src={el?.message?.photoUrl}
-                  alt=""
-                  onClick={() =>
-                    dispatch(setfullImagePreview({ fullviewImg: el }))
-                  }
-                />
-              ))}
+      {DatesArray.length ? (
+        DatesArray?.map((date, i) => {
+          return (
+            <div key={i} className="TimeWise_Media_Container">
+              <p>{date}</p>
+              <div className="Gallery">
+                {MessagesObject[date].map((el, i) => (
+                  // <MediaMsg el={el}/>
+                  <img
+                    key={i}
+                    src={el?.message?.photoUrl}
+                    alt=""
+                    onClick={() =>
+                      dispatch(setfullImagePreview({ fullviewImg: el }))
+                    }
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })
+      ) : (
+        <NoMsgs />
+      )}
     </>
   );
 };
 
 const Audio = () => {
-  // const dispatch = useDispatch();
   const { current_direct_messages } = useSelector(
     (state) => state.conversation.direct_chat
   );
@@ -58,18 +69,22 @@ const Audio = () => {
 
   return (
     <>
-      {DatesArray?.map((date, i) => {
-        return (
-          <div key={i} className="TimeWise_Media_Container">
-            <p>{date}</p>
-            <div className="Audio_Gallery">
-              {MessagesObject[date].map((el) => (
-                <AudioMsg el={el} />
-              ))}
+      {DatesArray.length ? (
+        DatesArray?.map((date, i) => {
+          return (
+            <div key={i} className="TimeWise_Media_Container">
+              <p>{date}</p>
+              <div className="Audio_Gallery">
+                {MessagesObject[date].map((el, i) => (
+                  <AudioMsg el={el} key={i} />
+                ))}
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })
+      ) : (
+        <NoMsgs />
+      )}
     </>
   );
 };
@@ -86,33 +101,52 @@ const Links = () => {
 
   return (
     <>
-      {DatesArray?.map((date, i) => {
-        return (
-          <div key={i} className="TimeWise_Media_Container">
-            <p>{date}</p>
-            <div className="Links_Gallery">
-              {MessagesObject[date].map((el) => (
-                <LinkMsg el={el} />
-                // <a
-                //   target="_blank"
-                //   href={el.message}
-                //   className="msg"
-                //   style={{ textDecoration: "none" }}
-                // >
-                //   {el.message}
-                // </a>
-                // <img
-                //   src={el.message.url}
-                //   alt=""
-                //   onClick={() =>
-                //     dispatch(setfullImagePreview({ fullviewImg: el }))
-                //   }
-                // />
-              ))}
+      {DatesArray.length ? (
+        DatesArray?.map((date, i) => {
+          return (
+            <div key={i} className="TimeWise_Media_Container">
+              <p>{date}</p>
+              <div className="Links_Gallery">
+                {MessagesObject[date].map((el, i) => (
+                  <LinkMsg el={el} key={i} />
+                ))}
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })
+      ) : (
+        <NoMsgs />
+      )}
+    </>
+  );
+};
+
+const Docs = () => {
+  const { current_direct_messages } = useSelector(
+    (state) => state.conversation.direct_chat
+  );
+  const { DatesArray, MessagesObject } = SortMessages({
+    messages: current_direct_messages,
+    filter: "Docs",
+    sort: "Desc",
+  });
+
+  return (
+    <>
+      {DatesArray.length ? (
+        DatesArray?.map((date, i) => {
+          return (
+            <div key={i} className="TimeWise_Media_Container">
+              <p>{date}</p>
+              <div className="Docs_Gallery">
+                {/* Document display and style */}
+              </div>
+            </div>
+          );
+        })
+      ) : (
+        <NoMsgs />
+      )}
     </>
   );
 };
@@ -186,7 +220,7 @@ const SharedMsgs = () => {
               case "Links":
                 return <Links />;
               case "Docs":
-                return <div>Docs</div>;
+                return <Docs />;
             }
           })()}
         </div>

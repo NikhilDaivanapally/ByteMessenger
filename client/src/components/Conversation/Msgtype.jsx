@@ -1,10 +1,9 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CiImageOn } from "react-icons/ci";
 import { HiDownload } from "react-icons/hi";
 import { IoIosArrowDown } from "react-icons/io";
 import "./Chat.css";
 import { useDispatch, useSelector } from "react-redux";
-import { LiaCheckDoubleSolid } from "react-icons/lia";
 import { LuClock4 } from "react-icons/lu";
 import { setfullImagePreview } from "../../store/slices/conversation";
 import formatTime from "../../utils/formatTime";
@@ -13,61 +12,40 @@ import { FaPause } from "react-icons/fa6";
 import { IoPlay } from "react-icons/io5";
 import WaveSurfer from "wavesurfer.js";
 import SenderFromGroup from "../../utils/SenderFromGroup";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { MdEmojiEmotions } from "react-icons/md";
-import { PiDotsThreeCircleVerticalFill } from "react-icons/pi";
-import { PiDotsThreeCircleVerticalDuotone } from "react-icons/pi";
-import { FiEdit2 } from "react-icons/fi";
-import { AiOutlineDelete } from "react-icons/ai";
 const TextMsg = ({ el }) => {
-  const dialogRef = useRef(null);
-  const { chat_type, friends } = useSelector((state) => state.app);
+  const { chat_type } = useSelector((state) => state.app);
   const { sender } = SenderFromGroup(el);
   const { Time } = formatTime(el.createdAt);
 
   return (
-    <div className="parent">
-      <div className={`Text_msg ${el.incoming ? "start" : "end"}`}>
-        {el?.outgoing && (
-          <div className="_option">
-            <div className="threedots">
-            <FiEdit2 />
-            </div>
-            <div className="emoji">
-            <AiOutlineDelete />
-            </div>
-          </div>
-        )}
-
-        {chat_type !== "individual" && el.incoming && (
-          <div className="user_profile">
-            <img className="img" src={sender?.avatar} alt="" />
-          </div>
-        )}
-        <div className="actual_msg">
-          {" "}
-          <div className="msg_info">
-            {chat_type !== "individual" && (
-              <p className="userName">{sender?.userName}</p>
-            )}
-            <p>{el.message?.text}</p>
-          </div>
-          <div className="time_Stamp">
-            {!el?.incoming ? (
-              el?.status == "pending" ? (
-                <LuClock4 />
-              ) : (
-                <div className="dot_container">
-                  <div className={`dot ${el.seen ? "seen" : "unseen"}`}></div>
-                  <div className={`dot ${el.seen ? "seen" : "unseen"}`}></div>
-                </div>
-                // <LiaCheckDoubleSolid />
-              )
+    <div className={`Text_msg ${el.incoming ? "start" : "end"}`}>
+      {chat_type !== "individual" && el.incoming && (
+        <div className="user_profile">
+          <img className="img" src={sender?.avatar} alt="" />
+        </div>
+      )}
+      <div className="actual_msg">
+        {" "}
+        <div className="msg_info">
+          {chat_type !== "individual" && (
+            <p className="userName">{sender?.userName}</p>
+          )}
+          <p>{el.message?.text}</p>
+        </div>
+        <div className="time_Stamp">
+          {!el?.incoming ? (
+            el?.status == "pending" ? (
+              <LuClock4 />
             ) : (
-              ""
-            )}
-            <p className="time">{Time}</p>
-          </div>
+              <div className="dot_container">
+                <div className={`dot ${el.seen ? "seen" : "unseen"}`}></div>
+                <div className={`dot ${el.seen ? "seen" : "unseen"}`}></div>
+              </div>
+            )
+          ) : (
+            ""
+          )}
+          <p className="time">{Time}</p>
         </div>
       </div>
     </div>
@@ -75,32 +53,20 @@ const TextMsg = ({ el }) => {
 };
 
 const MediaMsg = ({ el, scrollToBottom }) => {
-  const { chat_type, friends } = useSelector((state) => state.app);
+  const { chat_type } = useSelector((state) => state.app);
 
   const { sender } = SenderFromGroup(el);
 
   const dispatch = useDispatch();
-  const [openMoreOptions, setOpenMoreOptions] = useState(false);
-  const handleMoreOptions = () => {
-    setOpenMoreOptions((prev) => !prev);
-  };
+  // const [openMoreOptions, setOpenMoreOptions] = useState(false);
+  // const handleMoreOptions = () => {
+  //   setOpenMoreOptions((prev) => !prev);
+  // };
 
   const { Time } = formatTime(el?.createdAt);
 
   return (
     <div className={`Media_msg ${el?.incoming ? "start" : "end"}`}>
-      {openMoreOptions && (
-        <div className={`Menu_options`}>
-          <p className="option">Reply</p>
-          <p className="option">Delete</p>
-        </div>
-      )}
-
-      <IoIosArrowDown
-        className={`Menu_btn ${openMoreOptions ? "stay" : "close"}`}
-        onClick={handleMoreOptions}
-      ></IoIosArrowDown>
-
       {chat_type !== "individual" && el.incoming && (
         <div className="user_profile">
           <img className="img" src={sender?.avatar} alt="" />
@@ -142,7 +108,6 @@ const MediaMsg = ({ el, scrollToBottom }) => {
                 <div className={`dot ${el.seen ? "seen" : "unseen"}`}></div>
                 <div className={`dot ${el.seen ? "seen" : "unseen"}`}></div>
               </div>
-              // <LiaCheckDoubleSolid />
             )
           ) : (
             ""
@@ -155,9 +120,7 @@ const MediaMsg = ({ el, scrollToBottom }) => {
 };
 
 const AudioMsg = ({ el }) => {
-  const { chat_type, friends } = useSelector((state) => state.app);
-
-  const [openMoreOptions, setOpenMoreOptions] = useState(false);
+  const { chat_type } = useSelector((state) => state.app);
   const [audioUrl, setAudioUrl] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
@@ -174,7 +137,7 @@ const AudioMsg = ({ el }) => {
   // Fetch audio when the component is mounted
   useEffect(() => {
     if (el.status === "sent" && el?.message?.audioId) {
-      fetch(`https://byte-messenger-api.onrender.com/audio/${el.message.audioId}`)
+      fetch(`http://localhost:8000/api/audio/${el.message.audioId}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Audio not found");
@@ -247,25 +210,8 @@ const AudioMsg = ({ el }) => {
     }
   };
 
-  // Toggle options menu
-  const handleMoreOptions = () => {
-    setOpenMoreOptions((prev) => !prev);
-  };
-
   return (
     <div className={`Audio_msg ${el?.incoming ? "start" : "end"}`}>
-      {openMoreOptions && (
-        <div className="Menu_options">
-          <p className="option">Reply</p>
-          <p className="option">Delete</p>
-        </div>
-      )}
-
-      <IoIosArrowDown
-        className={`Menu_btn ${openMoreOptions ? "stay" : "close"}`}
-        onClick={handleMoreOptions}
-      />
-
       {chat_type !== "individual" &&
         el?.incoming(
           <div className="user_profile">
@@ -323,7 +269,6 @@ const AudioMsg = ({ el }) => {
                   <div className={`dot ${el.seen ? "seen" : "unseen"}`}></div>
                   <div className={`dot ${el.seen ? "seen" : "unseen"}`}></div>
                 </div>
-                // <LiaCheckDoubleSolid />
               )
             ) : (
               ""
@@ -344,7 +289,7 @@ const AudioMsg = ({ el }) => {
 };
 
 const DocMsg = ({ el }) => {
-  const { chat_type, friends } = useSelector((state) => state.app);
+  const { chat_type } = useSelector((state) => state.app);
 
   const [openMoreOptions, setOpenMoreOptions] = useState(false);
   const handleMoreOptions = () => {
@@ -374,24 +319,9 @@ const LinkMsg = ({ el }) => {
 
   const { sender } = SenderFromGroup(el);
 
-  const [openMoreOptions, setOpenMoreOptions] = useState(false);
-  const handleMoreOptions = () => {
-    setOpenMoreOptions((prev) => !prev);
-  };
   const { Time } = formatTime(el.createdAt);
   return (
     <div className={`Link_msg ${el.incoming ? "start" : "end"}  `}>
-      {openMoreOptions && (
-        <div className={`Menu_options`}>
-          <p className="option">Reply</p>
-          <p className="option">Delete</p>
-        </div>
-      )}
-      <IoIosArrowDown
-        className={`Menu_btn ${openMoreOptions ? "stay" : "close"}`}
-        onClick={handleMoreOptions}
-      ></IoIosArrowDown>
-
       {chat_type !== "individual" && el.incoming && (
         <div className="user_profile">
           <img className="img" src={sender?.avatar} alt="" />

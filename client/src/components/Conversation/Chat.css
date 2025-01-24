@@ -22,7 +22,6 @@
 
 .Selected_Conversation .openCamera {
   flex: 1;
-  /* background-color: red; */
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -49,12 +48,10 @@
   width: 80%;
   height: 100%;
   object-fit: contain;
-  /* transform: scaleX(-1); */
 }
 .openCamera .Stream_picture .picture {
   width: 80%;
   height: 100%;
-  /* object-fit: cover; */
   transform: scaleX(-1);
 }
 .openCamera .Stream_picture .Take_picture {
@@ -124,7 +121,6 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  /* gap: 0.1rem; */
 }
 .profile-info .profile_name {
   font-size: 1rem;
@@ -157,7 +153,7 @@
 .Selected_Conversation .body .datewise_msgs {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 /* Media Message preview & send start */
 .Preview_Send_Media .Preview_Container {
@@ -304,7 +300,6 @@
 .Link_msg,
 .Audio_msg {
   position: relative;
-  /* background-color: #ff2e74; */
 }
 
 .Text_msg.end,
@@ -322,15 +317,7 @@
   min-width: 260px;
   align-items: start;
 }
-/* .Link_msg {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding: 0.2rem;
-  border-radius: 0.5rem;
-  box-shadow: 0.5px 0.5px 4px var(--box-shadow-color);
-  background-color: var(--msg-start-color);
-} */
+
 .user_profile .img {
   width: 2.3rem;
   height: 2.3rem;
@@ -411,14 +398,13 @@
   word-break: break-all;
 }
 
-.msg_info a{
-  color: rgb(92, 92, 255);
+.msg_info a {
+  color: rgb(112, 79, 255);
 }
 .userName {
   font-size: 0.65rem;
   font-weight: 500;
   color: #6366f1;
-  /* padding-inline: 0.5rem; */
 }
 /* Text Msg Styling End */
 
@@ -471,7 +457,6 @@
   gap: 0.25rem;
   padding: 0.2rem;
   border-radius: 0.5rem;
-  /* box-shadow: 0.5px 0.5px 4px var(--box-shadow-color); */
   background-color: var(--bg-msg-start-color);
 }
 .Media_msg.start .Media_Container {
@@ -559,53 +544,6 @@
 .option:hover {
   background-color: var(--primary-hover);
 }
-.Menu_btn {
-  cursor: pointer;
-  width: 0rem;
-  height: 1.6rem;
-  color: var(--color);
-  position: absolute;
-  right: 0%;
-  top: 0%;
-  transition: all 0.1s ease;
-  z-index: 6;
-}
-.Menu_btn.stay {
-  width: 1.5rem;
-  right: 0%;
-}
-._option {
-  width: 60px;
-
-  /* height: 8px; */
-  /* background-color: var(--bg-msg-start-color); */
-  border-radius: 20px;
-  /* position: absolute; */
-  /* right: 100%; */
-  transition: all 0.2s ease;
-  /* overflow: hidden; */
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  height: fit-content;
-  transform: translateX(100%);
-  z-index: -1;
-  opacity: 0.2;
-}
-._option > div {
-  width: 23px;
-  height: 23px;
-  background-color: var(--bg-msg-start-color);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-}
-._option > div > svg {
-  font-size: 1.1rem;
-  line-height: 0;
-  position: relative;
-}
 
 .parent:hover ._option {
   transform: translateX(0);
@@ -614,13 +552,6 @@
 }
 .actual_msg {
   z-index: 2;
-}
-.Text_msg:hover .Menu_btn,
-.Media_msg:hover .Menu_btn,
-.Doc_msg:hover .Menu_btn,
-.Link_msg:hover .Menu_btn,
-.Audio_msg:hover .Menu_btn {
-  width: 1.5rem;
 }
 
 /* Conversation body  ends*/
@@ -652,7 +583,6 @@
   font-size: 1.7rem;
   color: var(--title-color);
   cursor: pointer;
-  /* background-color: red; */
 }
 
 .Recording_time {
@@ -690,8 +620,6 @@
 .Recording_time .recorded_duration {
   font-size: 17px;
   width: 45px;
-  /* color: red; */
-  /* width: 30px; */
 }
 
 .slider::-webkit-slider-thumb {
@@ -785,7 +713,6 @@
 /* Conversation footer  ends*/
 
 /* fullImageView start */
-/* {position:"fixed",inset:"0",width:'100%',height:'100vh',backgroundColor:"black"} */
 .Imagefull_viewPage {
   position: fixed;
   z-index: 1000;
@@ -820,12 +747,9 @@
   gap: 20px;
 }
 .fullImageView {
-  /* width: 100%;
-  height: 100%; */
   flex: 1;
   display: flex;
   flex-direction: column;
-  /* background-color: red; */
 }
 
 .carousel {
@@ -944,13 +868,8 @@
     max-width: 100vw;
   }
   .emoji .emoji_picker {
-    /* width: 90vw; */
     transform: translate(20%, 5%);
     scale: 0.9;
-    /* position: absolute; */
-    /* bottom: 10%; */
-    /* right: 0%; */
-    /* scale: 0.9; */
   }
   .Selected_Conversation .openCamera {
     padding: 1rem;
