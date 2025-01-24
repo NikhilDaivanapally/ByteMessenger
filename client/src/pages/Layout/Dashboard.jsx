@@ -32,10 +32,11 @@ import { motion, AnimatePresence } from "motion/react";
 import Loader from "../../components/Loader/Loader.jsx";
 import { Navigates } from "../../data/data.jsx";
 import { UpdateAuthState } from "../../store/slices/authSlice.js";
+import { RxEnterFullScreen, RxExitFullScreen } from "react-icons/rx";
 const RootPageLayout = () => {
   const [isSocketConnected, setIsSocketConnected] = useState(false);
   const [openuserDialog, setOpenuserDialog] = useState(false);
-
+  const [fullscreenisactive, SetFullScreenIsActive] = useState(false);
   const dispatch = useDispatch();
   const Navigate = useNavigate();
   const { pathname } = useLocation();
@@ -469,6 +470,30 @@ const RootPageLayout = () => {
     setOpenuserDialog((prev) => !prev);
   }, []);
 
+  function toggleFullscreen() {
+    const doc = window.document;
+    const docEl = doc.documentElement;
+
+    const requestFullscreen =
+      docEl.requestFullscreen ||
+      docEl.mozRequestFullscreen ||
+      docEl.webkitRequestFullscreen ||
+      docEl.msRequestFullscreen;
+    const exitFullscreen =
+      doc.exitFullscreen ||
+      doc.mozCancelFullscreen ||
+      doc.webkitExitFullscreen ||
+      doc.msExitFullscreen;
+
+    if (!doc.fullscreenElement) {
+      requestFullscreen.call(docEl);
+      SetFullScreenIsActive(true);
+    } else {
+      exitFullscreen.call(doc);
+      SetFullScreenIsActive(false);
+    }
+  }
+
   return (
     <>
       {!isSocketConnected ? (
@@ -478,6 +503,13 @@ const RootPageLayout = () => {
           <ToastConfig />
           {/* sidebar */}
           <nav className={`navbar ${room_id ? "Disable" : ""}`}>
+            <div onClick={toggleFullscreen}>
+              {fullscreenisactive ? (
+                <RxExitFullScreen />
+              ) : (
+                <RxEnterFullScreen />
+              )}
+            </div>
             <ul className="topfield">
               {Navigates.map(({ icon, active_icon, navigate, name }, index) => (
                 <Link
