@@ -20,8 +20,8 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: ["https://byte-messenger.vercel.app"],
-    methods: ["GET", "POST"],
+    origin: "https://byte-messenger.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
   },
   // adapter: createAdapter(redis),
 });

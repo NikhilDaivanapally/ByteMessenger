@@ -12,12 +12,15 @@ import redis from "./db/redis.js";
 // import redis from "./db/redis.js";
 const app = express();
 
+// Configure CORS
 app.use(
   cors({
-    origin: ["https://byte-messenger.vercel.app"],
-    credentials: true,
+    origin: "https://byte-messenger.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
+    credentials: true, // Allow cookies or Authorization headers
   })
 );
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -42,7 +45,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.authenticate("session"));
 app.set("trust proxy", true);
-
 
 app.get("/audio/:id", (req, res) => {
   const fileId = req.params.id;
