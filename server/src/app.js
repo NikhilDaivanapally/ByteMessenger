@@ -49,7 +49,7 @@ app.use(passport.authenticate("session"));
 // Trust proxy for secure cookies in production
 app.set("trust proxy", 1); // `1` for one level of proxy (e.g., Vercel)
 
-app.get("/audio/:id", (req, res) => {
+app.get("/api/audio/:id", (req, res) => {
   const fileId = req.params.id;
   console.log("Received fileId:", fileId);
 
