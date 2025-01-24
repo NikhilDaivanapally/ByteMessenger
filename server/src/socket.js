@@ -28,7 +28,6 @@ const io = new Server(server, {
 
 io.on("connection", async (socket) => {
   const user_id = socket.handshake.query["auth_id"];
-  console.log(user_id);
   // const socket_id = socket.id;
   if (user_id !== null && Boolean(user_id)) {
     try {
@@ -99,7 +98,6 @@ io.on("connection", async (socket) => {
           }
         }
       });
-      console.log("socket connected");
     } catch (error) {
       console.log(error);
     }
@@ -133,12 +131,6 @@ io.on("connection", async (socket) => {
     const sender = await User.findById(request_doc.sender);
     const receiver = await User.findById(request_doc.recipient);
 
-    // sender.friends.push(request_doc.recipient);
-    // receiver.friends.push(request_doc.sender);
-
-    // await receiver.save({ new: true, validateModifiedOnly: true });
-    // await sender.save({ new: true, validateModifiedOnly: true });
-
     // update the status to accepted
     request_doc.status = "accepted";
     await request_doc.save({ new: true, validateModifiedOnly: true });
@@ -154,7 +146,6 @@ io.on("connection", async (socket) => {
 
   socket.on("start_conversation", async (data) => {
     const { to, from } = data;
-    console.log(data);
     const existing_conversations = await OneToOneMessage.find({
       participants: { $all: [to, from] },
     })
@@ -175,22 +166,11 @@ io.on("connection", async (socket) => {
 
   socket.on("group_created", async (data) => {
     const { participants, admin } = data;
-    console.log(data);
-    // const AdminSocketId = await User.findById(admin).select("socket_id -_id");
     const socket_ids = participants.map((el) => el?.socket_id);
-    // const invalidSocketIds = socket_ids.filter((socketId) => !socketId);
-    // if (invalidSocketIds.length > 0) {
-    //   console.error("Invalid socket IDs found:", invalidSocketIds);
-    // }
     io.to(admin?.socket_id).emit("new_groupChat_admin", data);
     socket_ids.forEach((socketId) => {
       if (socketId) {
-        // const socketExists = io.sockets.sockets.get(socketId);
-        // if (socketExists) {
         io.to(socketId).emit("new_groupChat", data);
-        // } else {
-        //   console.error(`Socket ID not connected: ${socketId}`);
-        // }
       } else {
         console.error("Encountered a null or undefined socket ID.");
       }
@@ -203,12 +183,6 @@ io.on("connection", async (socket) => {
     });
     callback(messages);
   });
-
-  // socket.on("current_conversation_msg_seen", async (data) => {
-  //   const { from, msg } = data;
-  //   const from_user_socketId = await User.findById(from);
-  //   io.to(from_user_socketId?.socket_id).emit("update_from_user_msg_seen", msg);
-  // });
 
   //  (Messages)
   //  text and link msg event
@@ -224,7 +198,6 @@ io.on("connection", async (socket) => {
       createdAt,
       updatedAt,
     } = data;
-    console.log(data);
     switch (conversationType) {
       case "OneToOneMessage":
         const msg_receiver = await User.findById(recipients);
@@ -280,12 +253,6 @@ io.on("connection", async (socket) => {
             Sockets.forEach((socketId) => {
               if (socketId) {
                 io.to(socketId).emit("new_message", _GroupMessage);
-                // const socketExists = io.sockets.sockets.get(socketId);
-                // if (socketExists) {
-                //   io.to(socketId).emit("new_message", _GroupMessage);
-                // } else {
-                //   console.error(`Socket ID not connected: ${socketId}`);
-                // }
               } else {
                 console.error("Encountered a null or undefined socket ID.");
               }
@@ -321,7 +288,6 @@ io.on("connection", async (socket) => {
       createdAt,
       updatedAt,
     } = data;
-    // const { message, conversation_id, from, to, type, chat_type } = data;
     // Convert the Blob to a readable stream
     const readableStream = new Readable();
     readableStream.push(Buffer.from(message));
@@ -332,8 +298,7 @@ io.on("connection", async (socket) => {
     readableStream.pipe(uploadStream);
 
     uploadStream.on("finish", async () => {
-      console.log("Audio uploaded with ID:", uploadStream.id);
-
+      // console.log("Audio uploaded with ID:", uploadStream.id);
       switch (conversationType) {
         case "OneToOneMessage":
           const msg_receiver = await User.findById(recipients);
@@ -435,8 +400,6 @@ io.on("connection", async (socket) => {
     // upload file to cloudinary
     const img = await v2.uploader.upload(file[0].blob);
 
-    // create a new conversation only if it doesn't exists yet or add new message to the list
-
     switch (conversationType) {
       case "OneToOneMessage":
         const msg_receiver = await User.findById(recipients);
@@ -527,9 +490,6 @@ io.on("connection", async (socket) => {
       updatedAt,
     } = data;
     const { file, text } = message;
-    console.log("Received buffer:", file);
-    console.log("recieved", data);
-
     try {
       // Upload file to Cloudinary
       const result = await new Promise((resolve, reject) => {
@@ -540,8 +500,6 @@ io.on("connection", async (socket) => {
 
         streamifier.createReadStream(file).pipe(uploadStream);
       });
-
-      console.log("Uploaded image URL:", result.secure_url);
 
       switch (conversationType) {
         case "OneToOneMessage":
@@ -631,9 +589,7 @@ io.on("connection", async (socket) => {
     switch (message?.conversationType) {
       case "OneToOneMessage":
         const to_user = await User.findById(message.recipients);
-
         io.to(to_user?.socket_id).emit("on_update_unreadMsg", message);
-
         break;
       case "OneToManyMessage":
         const socket_ids = message.recipients.map(async (id) => {
@@ -774,13 +730,6 @@ io.on("connection", async (socket) => {
 
   // msg has read by the recipient
 
-  // socket.on("msg_seen", async (data) => {
-  //   const { messageId, sender } = data;
-  //   const user = await User.findById(sender).select("socket_id -_id");
-  //   io.to(user.socket_id).emit("update_msg_seen", { messageId: messageId });
-  //   await Message.findByIdAndUpdate(messageId, { isRead: true });
-  // });
-
   // exit event
   socket.on("exit", async (data) => {
     const { user_id, friends } = data;
@@ -799,7 +748,6 @@ io.on("connection", async (socket) => {
         return socket_id;
       });
       const EmmitStatusTo = await Promise.all(socket_ids);
-      console.log(EmmitStatusTo);
       EmmitStatusTo.forEach((socketId) => {
         if (socketId) {
           const socketExists = io.sockets.sockets.get(socketId);
@@ -819,7 +767,7 @@ io.on("connection", async (socket) => {
 
     // Todo broadcast user disconnection;
 
-    console.log("closing connection");
+    // console.log("closing connection");
     socket.disconnect(0);
   });
 

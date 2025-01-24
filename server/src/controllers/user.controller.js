@@ -18,10 +18,9 @@ const updateProfile = async (req, res, next) => {
     avatar = await uploadCloudinary(avatarLocalpath);
   }
 
-  if (avatar?.url) {
-    filteredBody.avatar = avatar.url;
+  if (avatar?.secure_url) {
+    filteredBody.avatar = avatar.secure_url;
   }
-  // console.log(filteredBody);
   const userDoc = await User.findByIdAndUpdate(req.user._id, filteredBody, {
     new: true,
     validateModifiedOnly: true,
@@ -50,9 +49,7 @@ const getUsers = async (req, res, next) => {
       ? friendship.recipient.toString()
       : friendship.sender.toString();
   });
-  console.log(friendIds);
   const remaining_users = all_users.filter((user) => {
-    console.log(user);
     return (
       !friendIds.includes(user._id.toString()) &&
       user._id.toString() !== currentUserId.toString()
@@ -66,15 +63,7 @@ const getUsers = async (req, res, next) => {
 };
 
 const getFriends = async (req, res, next) => {
-  console.log(req.user._id);
-  // const this_user = await User.findById(req.user._id).populate("friends");
-  // // const user = await User.findById(req.user._id);
-  // // console.log(this_user);
-  // res.status(200).json({
-  //   status: "success",
-  //   data: this_user.friends,
-  //   message: "friends found successfully",
-
+  
   const pipeline = [
     // Match documents where the sender or recipient matches the provided ID
     {
@@ -166,7 +155,6 @@ const getFriendrequest = async (req, res, next) => {
 };
 
 const getDirectConversations = async (req, res, next) => {
-  console.log(req.user._id, "user at conversations");
   try {
     const Existing_Direct_Conversations = await OneToOneMessage.aggregate([
       {
@@ -320,7 +308,6 @@ const getGroupConversations = async (req, res, next) => {
 
 const getConversation = async (req, res, next) => {
   const { conversationId, conversationType } = req.body;
-  console.log(req.body);
   let conversation;
   switch (conversationType) {
     case "OneToOneMessage":
@@ -477,7 +464,7 @@ const createGroup = async (req, res, next) => {
     title,
     participants: JSON.parse(users),
     admin,
-    avatar: avatar?.url || "",
+    avatar: avatar?.secure_url || "",
   });
 
   group_created = await OneToManyMessage.findById(group_created._id)

@@ -7,15 +7,6 @@ import { sendMail } from "../services/mailer.js";
 import { OTP } from "../Templates/Mail/otp.js";
 import { ResetPassord } from "../Templates/Mail/resetPassword.js";
 import passport from "passport";
-const accessoptions = {
-  httpOnly: true,
-  maxAge: 1000 * 60 * 60 * 24,
-};
-
-const refreshoptions = {
-  httpOnly: true,
-  maxAge: 1000 * 60 * 60 * 24 * 10,
-};
 
 const RegisterUser = async (req, res, next) => {
   // collect the Data from re body
@@ -58,7 +49,7 @@ const RegisterUser = async (req, res, next) => {
   const new_user = await User.create({
     ...filteredBody,
     status: "Offline",
-    avatar: avatar?.url || "",
+    avatar: avatar?.secure_url || "",
   });
 
   req.userId = new_user._id;
@@ -148,18 +139,12 @@ const verifyOTP = async (req, res, next) => {
   }
 
   // OTP is Correct
-  const accessToken = user.generateAccessToken();
-  const refreshToken = user.generateRefreshToken();
-  user.refreshToken = refreshToken;
   user.verified = true;
   user.otp = undefined;
   user.otp_expiry_time = undefined;
   await user.save({ new: true, validateModifiedOnly: true });
   return res
-    .status(200)
-    .cookie("accessToken", accessToken, accessoptions)
-    .cookie("refreshToken", refreshToken, refreshoptions)
-    .json({
+    .status(200).json({
       status: "success",
       user: user,
       message: "OTP verified and  signup successfull",
@@ -238,7 +223,6 @@ const forgotpassword = async (req, res, next) => {
     const resetToken = await user.createPasswordResetToken();
     await user.save({ validateBeforeSave: false });
     const resetURL = `https://byte-messenger.vercel.app/reset-password?token=${resetToken}`;
-    console.log(resetToken, "resetToken");
     // send the resetURL to the email
     await sendMail({
       to: user.email,
@@ -267,7 +251,6 @@ const resetpassword = async (req, res, next) => {
   // Get the token from the url using query
   // console.log(req.query)
   const { token } = req.query;
-  console.log(token);
   const { NewPassword, confirmNewPassword } = req.body;
 
   const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
