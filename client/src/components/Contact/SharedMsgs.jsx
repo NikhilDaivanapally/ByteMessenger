@@ -27,14 +27,14 @@ const Media = () => {
             <p>{date}</p>
             <div className="Gallery">
               {MessagesObject[date].map((el) => (
-                <MediaMsg el={el}/>
-                // <img
-                //   src={el?.message?.photoUrl}
-                //   alt=""
-                //   onClick={() =>
-                //     dispatch(setfullImagePreview({ fullviewImg: el }))
-                //   }
-                // />
+                // <MediaMsg el={el}/>
+                <img
+                  src={el?.message?.photoUrl}
+                  alt=""
+                  onClick={() =>
+                    dispatch(setfullImagePreview({ fullviewImg: el }))
+                  }
+                />
               ))}
             </div>
           </div>
