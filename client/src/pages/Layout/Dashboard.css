@@ -21,9 +21,10 @@
 
 .enter_exit_fullscreen {
   font-size: 1.5rem;
-  color: var(--bg-msg-start-color);
-  fill: var(--bg-msg-start-color);
-  stroke: var(--bg-msg-start-color);
+  color: white;
+  fill: white;
+  stroke: white;
+  cursor: pointer;
 }
 .navbar .topfield {
   display: flex;
