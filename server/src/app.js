@@ -9,15 +9,15 @@ import session from "express-session";
 import { RedisStore } from "connect-redis";
 import { ObjectId } from "mongodb";
 import redis from "./db/redis.js";
-// import redis from "./db/redis.js";
+
 const app = express();
 
 // Configure CORS
 app.use(
   cors({
-    origin: "https://byte-messenger.vercel.app",
+    origin: "https://byte-messenger.vercel.app", // Frontend origin
     methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
-    credentials: true, // Allow cookies or Authorization headers
+    credentials: true, // Allow cookies and Authorization headers
   })
 );
 
@@ -25,26 +25,29 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// Configure session with Redis store
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "default-secret",
-    store: new RedisStore({ client: redis, ttl: 24 * 60 * 60 }),
+    store: new RedisStore({ client: redis, ttl: 24 * 60 * 60 }), // TTL = 1 day
     resave: false,
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // Set to true in production
-      domain: "https://byte-messenger.vercel.app",
-      sameSite: "none",
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
+      secure: process.env.NODE_ENV === "production", // Secure cookies in production
+      sameSite: "none", // Required for cross-origin cookies
+      maxAge: 24 * 60 * 60 * 1000, // 1 day in milliseconds
     },
   })
 );
 
+// Configure Passport.js
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.authenticate("session"));
-app.set("trust proxy", true);
+
+// Trust proxy for secure cookies in production
+app.set("trust proxy", 1); // `1` for one level of proxy (e.g., Vercel)
 
 app.get("/audio/:id", (req, res) => {
   const fileId = req.params.id;
@@ -73,12 +76,15 @@ app.get("/audio/:id", (req, res) => {
   }
 });
 
+// API routes
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/user", userRoute);
+
+// Default route
 app.use("/", (req, res) => {
   return res.status(200).json({
     status: "success",
-    message: "Your backend is working fine👍🏼",
+    message: "Your backend is working fine 👍🏼",
   });
 });
 
