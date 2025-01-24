@@ -11,6 +11,9 @@
   overflow-y: auto;
   z-index: 8;
 }
+.userinfo_container .no_groupimg {
+  font-size: 3rem;
+}
 .userinfo_container::-webkit-scrollbar {
   appearance: none;
   width: 0.4rem;
@@ -166,7 +169,7 @@
   cursor: pointer;
 }
 .right_part:hover {
-  background-color:var(--bg-msg-end-color);
+  background-color: var(--bg-msg-end-color);
 }
 .Media .top_section .right_part .view_Media {
   font-size: 1.3rem;
@@ -174,19 +177,16 @@
 
 .Media .bottom_section {
   width: 100%;
-  /* height: 90px; */
   padding: 0.5rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
-  /* background-color: white; */
 }
 .Media .bottom_section img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   cursor: pointer;
-  /* background-color: black; */
 }
 .common_in {
   padding-block: 0.5rem;

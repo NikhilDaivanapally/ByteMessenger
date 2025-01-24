@@ -19,17 +19,12 @@ const Contact = () => {
   const { current_direct_conversation, current_direct_messages } = useSelector(
     (state) => state.conversation.direct_chat
   );
-  const { room_id, chat_type } = useSelector((state) => state.app);
+  const {chat_type } = useSelector((state) => state.app);
   const { current_group_conversation } = useSelector(
     (state) => state.conversation.group_chat
   );
-  const { friends } = useSelector((state) => state.app);
-  const admin = [...friends, auth].find(
-    //problem
-    (el) => el?._id == current_group_conversation?.admin
-  );
   const users = current_group_conversation?.users
-    ? [...current_group_conversation?.users, admin]
+    ? [...current_group_conversation?.users, current_group_conversation?.admin]
     : [];
   const AllMediaImgs = current_direct_messages
     ?.filter((el) => el.type == "photo")
@@ -103,7 +98,7 @@ const Contact = () => {
                     <div className="member_info">
                       <p className="member_name">
                         {user?._id !== auth?._id ? user?.userName : "you"}{" "}
-                        {user?._id == current_group_conversation?.admin && (
+                        {user?._id == current_group_conversation?.admin?._id && (
                           <span className="admin">Group Admin</span>
                         )}
                       </p>
