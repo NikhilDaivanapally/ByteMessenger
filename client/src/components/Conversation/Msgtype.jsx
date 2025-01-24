@@ -137,7 +137,7 @@ const AudioMsg = ({ el }) => {
   // Fetch audio when the component is mounted
   useEffect(() => {
     if (el.status === "sent" && el?.message?.audioId) {
-      fetch(`http://localhost:8000/api/audio/${el.message.audioId}`)
+      fetch(`https://byte-messenger-api.onrender.com/api/audio/${el.message.audioId}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Audio not found");
