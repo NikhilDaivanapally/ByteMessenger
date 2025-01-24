@@ -12,7 +12,6 @@ import { RxCross2 } from "react-icons/rx";
 import ShowOffline from "../ShowOffline/ShowOffline.jsx";
 const DirectConversation = () => {
   const dispatch = useDispatch();
-  // const [openDialog, setOpenDialog] = useState(false);
   const [searchvalue, setSearchvalue] = useState("");
   const { _id: auth_id } = useSelector((state) => state.auth.user);
   const { OnlineStatus } = useSelector((state) => state.app);
@@ -30,10 +29,6 @@ const DirectConversation = () => {
   const hasPinnedConversations = Conversations.some(
     (el) => el?.pinned == "true"
   );
-
-  // const handleDialogState = useCallback(() => {
-  //   setOpenDialog((prev) => !prev);
-  // }, []);
 
   useEffect(() => {
     if (current_direct_messages?.length > 0) {
@@ -66,10 +61,9 @@ const DirectConversation = () => {
         conversation["_id"] = data._id;
         conversation["messages"] = [];
         conversation["user"] = user[0];
-        dispatch(addDirectConversation({auth:user,conversation}));
+        dispatch(addDirectConversation({ auth: user, conversation }));
       }
       dispatch(SelectConversation({ room_id: data._id }));
-      // handleDialogState();
     };
     socket.on("start_chat", handleStartChat);
     return () => {
@@ -104,11 +98,6 @@ const DirectConversation = () => {
         <div className="Top_Section">
           <div className="Top_bar">
             <p className="left title">Chats</p>
-            {/* <div className="right">
-              <div onClick={handleDialogState}>
-                {openDialog ? <IoPersonAdd /> : <IoPersonAddOutline />}
-              </div>
-            </div> */}
           </div>
           <div className="Search_box bottom_bar">
             <CiSearch className="searchicon" />
@@ -175,12 +164,6 @@ const DirectConversation = () => {
           </>
         </div>
       </div>
-      {/* {openDialog && (
-        <UpdatesDialog
-          openDialog={openDialog}
-          handlecloseDialog={handleDialogState}
-        />
-      )} */}
     </>
   );
 };

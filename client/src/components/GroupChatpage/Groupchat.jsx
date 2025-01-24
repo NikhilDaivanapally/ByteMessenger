@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setCurrentGroupMessages,
@@ -21,20 +21,24 @@ const Groupchat = ({ chat }) => {
   const Time = ConversationTime(time);
   const { message } = Message(msg);
 
-  const handleSelectConversation = () => {
-    dispatch(setCurrentGroupMessages([]));
-    dispatch(SelectConversation({ room_id: id }));
-    const [updateConversation] = GroupConversations.filter((el) => el.id == id);
-    if (Number(updateConversation.unread)) {
-      // socket.emit("clear_unread", { conversation_id: id });
-      dispatch(
-        updateGroupConversation({
-          ...updateConversation,
-          unread: 0,
-        })
+  const handleSelectConversation = useCallback(() => {
+    if (room_id !== id) {
+      dispatch(setCurrentGroupMessages([]));
+      dispatch(SelectConversation({ room_id: id }));
+      const [updateConversation] = GroupConversations.filter(
+        (el) => el.id == id
       );
+      if (Number(updateConversation.unread)) {
+        dispatch(
+          updateGroupConversation({
+            ...updateConversation,
+            unread: 0,
+          })
+        );
+      }
     }
-  };
+  }, [room_id, GroupConversations]);
+  
   return (
     <div
       className={`friend ${room_id == id && "selected"}`}

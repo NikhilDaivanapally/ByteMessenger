@@ -36,25 +36,27 @@ const ConversationElement = ({ chat }) => {
   const { message } = Message(msg);
 
   const handleSelectConversation = useCallback(() => {
-    dispatch(setCurrentDirectMessages([]));
-    dispatch(SelectConversation({ room_id: id }));
-    const [updateConversation] = DirectConversations.filter(
-      (el) => el.id == id
-    );
-    if (updateConversation.unread) {
-      socket.emit("clear_unread", {
-        conversationId: id,
-        recipients: auth._id,
-        sender: user_id,
-      });
-      dispatch(
-        updateDirectConversation({
-          ...updateConversation,
-          unread: 0,
-        })
+    if (room_id !== id) {
+      dispatch(setCurrentDirectMessages([]));
+      dispatch(SelectConversation({ room_id: id }));
+      const [updateConversation] = DirectConversations.filter(
+        (el) => el.id == id
       );
+      if (updateConversation.unread) {
+        socket.emit("clear_unread", {
+          conversationId: id,
+          recipients: auth._id,
+          sender: user_id,
+        });
+        dispatch(
+          updateDirectConversation({
+            ...updateConversation,
+            unread: 0,
+          })
+        );
+      }
     }
-  }, [DirectConversations]);
+  }, [room_id,DirectConversations]);
 
   return (
     <div
