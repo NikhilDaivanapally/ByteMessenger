@@ -32,7 +32,7 @@ const Contact = () => {
     ? [...current_group_conversation?.users, admin]
     : [];
   const AllMediaImgs = current_direct_messages
-    ?.filter((el) => el.subtype == "media")
+    ?.filter((el) => el.subtype == "photo")
     .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
   const MediaImgs = AllMediaImgs.slice(0, 3);
   return (

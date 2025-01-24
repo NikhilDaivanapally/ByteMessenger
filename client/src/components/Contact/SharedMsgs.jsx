@@ -6,7 +6,7 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import { faker } from "@faker-js/faker";
 import { setfullImagePreview } from "../../store/slices/conversation";
 import SortMessages from "../../utils/SortMessages";
-import { AudioMsg, LinkMsg } from "../Conversation/Msgtype";
+import { AudioMsg, LinkMsg, MediaMsg } from "../Conversation/Msgtype";
 
 const Media = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const Media = () => {
   );
   const { DatesArray, MessagesObject } = SortMessages({
     messages: current_direct_messages,
-    filter: "media",
+    filter: "photo",
     sort: "Desc",
   });
 
@@ -27,13 +27,14 @@ const Media = () => {
             <p>{date}</p>
             <div className="Gallery">
               {MessagesObject[date].map((el) => (
-                <img
-                  src={el.message.url}
-                  alt=""
-                  onClick={() =>
-                    dispatch(setfullImagePreview({ fullviewImg: el }))
-                  }
-                />
+                <MediaMsg el={el}/>
+                // <img
+                //   src={el?.message?.photoUrl}
+                //   alt=""
+                //   onClick={() =>
+                //     dispatch(setfullImagePreview({ fullviewImg: el }))
+                //   }
+                // />
               ))}
             </div>
           </div>
@@ -91,15 +92,15 @@ const Links = () => {
             <p>{date}</p>
             <div className="Links_Gallery">
               {MessagesObject[date].map((el) => (
-                // <LinkMsg el={el} />
-                <a
-                  target="_blank"
-                  href={el.message}
-                  className="msg"
-                  style={{ textDecoration: "none" }}
-                >
-                  {el.message}
-                </a>
+                <LinkMsg el={el} />
+                // <a
+                //   target="_blank"
+                //   href={el.message}
+                //   className="msg"
+                //   style={{ textDecoration: "none" }}
+                // >
+                //   {el.message}
+                // </a>
                 // <img
                 //   src={el.message.url}
                 //   alt=""
