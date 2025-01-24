@@ -503,7 +503,7 @@ const RootPageLayout = () => {
           <ToastConfig />
           {/* sidebar */}
           <nav className={`navbar ${room_id ? "Disable" : ""}`}>
-            <div onClick={toggleFullscreen}>
+            <div className="enter_exit_fullscreen" onClick={toggleFullscreen}>
               {fullscreenisactive ? (
                 <RxExitFullScreen />
               ) : (

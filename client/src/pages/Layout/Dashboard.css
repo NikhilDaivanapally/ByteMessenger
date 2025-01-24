@@ -18,6 +18,13 @@
   /* justify-content: center; */
   border-right: 1px solid #2c2f34;
 }
+
+.enter_exit_fullscreen {
+  font-size: 1.5rem;
+  color: var(--bg-msg-start-color);
+  fill: var(--bg-msg-start-color);
+  stroke: var(--bg-msg-start-color);
+}
 .navbar .topfield {
   display: flex;
   flex-direction: column;
@@ -214,11 +221,11 @@
   color: var(--title-color);
   margin-inline: 1rem;
 }
-.All_Chats_Container .title .totalmessages{
+.All_Chats_Container .title .totalmessages {
   background-color: var(--bg-msg-end-color);
-  font-size: .8rem;
-  padding:0rem .5rem;
-  border-radius:.7rem;
+  font-size: 0.8rem;
+  padding: 0rem 0.5rem;
+  border-radius: 0.7rem;
 }
 .chats_Sections .Chats_Container .Pinned_Chats_Container .Pinned_Chats,
 .chats_Sections .Chats_Container .All_Chats_Container .All_Chats {
