@@ -3,7 +3,6 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 import { useSelector, useDispatch } from "react-redux";
 import { connectSocket, socket } from "../../socket.js";
-import ToastConfig from "../../toastConfig/ToastConfig.jsx";
 import { CiLogout } from "react-icons/ci";
 import { CgProfile } from "react-icons/cg";
 import toast from "react-hot-toast";
@@ -11,7 +10,6 @@ import {
   useExistingDirectConversationsQuery,
   useFriendsQuery,
   useGetConversationMutation,
-  useLazySuccessQuery,
   useLogoutMutation,
 } from "../../store/slices/apiSlice.js";
 import { setChatType, updateFriends } from "../../store/slices/appSlice.js";
@@ -31,7 +29,6 @@ import {
 import { motion, AnimatePresence } from "motion/react";
 import Loader from "../../components/Loader/Loader.jsx";
 import { Navigates } from "../../data/data.jsx";
-import { UpdateAuthState } from "../../store/slices/authSlice.js";
 import { RxEnterFullScreen, RxExitFullScreen } from "react-icons/rx";
 const RootPageLayout = () => {
   const [isSocketConnected, setIsSocketConnected] = useState(false);
@@ -41,37 +38,10 @@ const RootPageLayout = () => {
   const Navigate = useNavigate();
   const { pathname } = useLocation();
   const user = useSelector((state) => state.auth.user);
-
-  const [
-    triggerLoginUser,
-    { data: LoginUserData, isSuccess: LoginUserIsSuccess },
-  ] = useLazySuccessQuery();
-
-  useEffect(() => {
-    triggerLoginUser({});
-  }, []);
-  useEffect(() => {
-    if (LoginUserIsSuccess && LoginUserData) {
-      dispatch(UpdateAuthState(LoginUserData.user));
-      toast.success(LoginUserData.message);
-      toast.success("Login success");
-
-      // Navigate("/");
-    }
-  }, [LoginUserIsSuccess, LoginUserData]);
-
-  // useEffect(() => {
-  //   if (!user) {
-  //     Navigate("/login");
-  //   }else{
-  //     Navigate("/")
-  //   }
-  // }, [user]);
-
   const { direct_chat, group_chat } = useSelector(
     (state) => state.conversation
   );
-  const { friends, chat_type, room_id } = useSelector((state) => state.app);
+  const { friends, room_id } = useSelector((state) => state.app);
 
   const [getConversation, { data: getConversationData }] =
     useGetConversationMutation();
@@ -97,11 +67,8 @@ const RootPageLayout = () => {
     }
   }, [pathname]);
 
-  const {
-    data: DirectConversationData,
-    isLoading,
-    error: DirectConversationError,
-  } = useExistingDirectConversationsQuery();
+  const { data: DirectConversationData, error: DirectConversationError } =
+    useExistingDirectConversationsQuery();
   // Hook for updating DirectConversations to the store
   useEffect(() => {
     if (DirectConversationData) {
@@ -419,7 +386,6 @@ const RootPageLayout = () => {
     if (friends) {
       const handleChangeStatus = () => {
         socket.emit("exit", { user_id: user?._id, friends });
-        // socket.disconnect();
       };
       window.addEventListener("beforeunload", handleChangeStatus);
 
@@ -500,7 +466,6 @@ const RootPageLayout = () => {
         <Loader />
       ) : (
         <div className="Layout">
-          <ToastConfig />
           {/* sidebar */}
           <nav className={`navbar ${room_id ? "Disable" : ""}`}>
             <div className="enter_exit_fullscreen" onClick={toggleFullscreen}>
@@ -519,8 +484,6 @@ const RootPageLayout = () => {
                 >
                   <li onClick={() => handleChangeactiveIndex(index)}>
                     {activeIndex === index ? active_icon : icon}
-                    {/* {icon} */}
-                    {/* <p className="navigate_name">{name}</p> */}
                   </li>
                 </Link>
               ))}

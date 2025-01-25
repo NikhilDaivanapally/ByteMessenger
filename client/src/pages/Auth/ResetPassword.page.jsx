@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import "./auth.css";
-import ToastConfig from "../../toastConfig/ToastConfig";
 import { useResetpassMutation } from "../../store/slices/apiSlice";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -56,23 +55,8 @@ const ResetPassword = () => {
     [resetFormData]
   );
 
-  const handleFocus = useCallback(
-    (e) => e.target.nextSibling.classList.add("lift"),
-    []
-  );
-  const handleBlur = useCallback(
-    (e) => {
-      if (!resetFormData[e.target.name]) {
-        e.target.nextSibling.classList.remove("lift");
-      }
-    },
-    [resetFormData]
-  );
-
   return (
     <div className="page">
-      {/* Toaster */}
-      <ToastConfig />
       <div className="container">
         <p className="title">Reset password</p>
         {!data ? (
@@ -86,8 +70,6 @@ const ResetPassword = () => {
                   name={key}
                   value={resetFormData[key]}
                   handleInputChange={handleInputChange}
-                  handleFocus={handleFocus}
-                  handleBlur={handleBlur}
                   handleClick={() =>
                     setShowpassword({
                       ...showpassword,
@@ -98,11 +80,7 @@ const ResetPassword = () => {
                 />
               ))}
               <button type="submit" className="btn">
-                {isLoading ? (
-                  <AuthLoader/>
-                ) : (
-                  "Reset password"
-                )}
+                {isLoading ? <AuthLoader /> : "Reset password"}
               </button>
             </form>
           </>

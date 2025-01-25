@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useForgotpassMutation } from "../../store/slices/apiSlice";
 import toast from "react-hot-toast";
-
+import logo from "../../assests/free-chat-icon-download-in-svg-png-gif-file-formats--bubble-notification-sms-lined-pack-user-interface-icons-431107.png";
 import "./auth.css";
-import ToastConfig from "../../toastConfig/ToastConfig";
 import InputField from "../../components/Input/Input";
 import AuthLoader from "../../components/AuthLoader/AuthLoader";
+import { Link } from "react-router-dom";
 const Forgotpassowrd = () => {
   const [email, setEmail] = useState("");
   const [forgotpass, { isLoading, error, data }] = useForgotpassMutation();
@@ -25,15 +25,12 @@ const Forgotpassowrd = () => {
     },
     [email]
   );
-
-  const handleFocus = (e) => e.target.nextSibling.classList.add("lift");
-  const handleBlur = (e) => {
-    !email && e.target.nextSibling.classList.remove("lift");
-  };
   return (
     <div className="page">
-      {/* Toaster */}
-      <ToastConfig />
+      <div className="brand">
+        <img src={logo} alt="" width={30} />
+        <p className="">Byte Messenger</p>
+      </div>
       <div className="container">
         <p className="title">Forgot password</p>
         {!data ? (
@@ -45,15 +42,9 @@ const Forgotpassowrd = () => {
                 name={"email"}
                 value={email}
                 handleInputChange={handleInputChange}
-                handleFocus={handleFocus}
-                handleBlur={handleBlur}
               />
               <button type="submit" className="btn">
-                {isLoading ? (
-                  <AuthLoader/>
-                ) : (
-                  "send password reset link"
-                )}
+                {isLoading ? <AuthLoader /> : "send password reset link"}
               </button>
             </form>
           </>
@@ -62,6 +53,12 @@ const Forgotpassowrd = () => {
             password reset link has been sent to <br /> <b>{email}</b>
           </p>
         )}
+        <p className="redirect">
+          Get Back to{" "}
+          <Link to={"/login"} className="to">
+            Sign in
+          </Link>
+        </p>
       </div>
     </div>
   );

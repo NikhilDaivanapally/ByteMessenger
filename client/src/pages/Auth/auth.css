@@ -3,26 +3,57 @@
   height: 100vh;
   display: grid;
   place-items: center;
+  color: white;
+}
+
+.brand {
+  position: absolute;
+  top: 3%;
+  left: 3%;
+  color: white;
+  display: flex;
+  gap: 5px;
 }
 .page .container {
   width: 30%;
   min-width: 350px;
   padding: 2rem;
-  background-color: white;
   border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.signin_headtitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 5px;
+}
+.signin_headtitle .headtitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.signin_headtitle .headtitle > p {
+  font-size: 1.5rem;
+}
+.signin_headtitle .headtitle > span {
+  font-size: 0.8rem;
 }
 
 .page .container .title {
   font-size: 1.5rem;
   font-weight: 500;
-  margin-bottom: 20px;
   text-align: center;
+  color: white;
 }
 
 .sign_with_title {
   width: 100%;
-  height: 1.5px;
-  background-color: rgb(216, 216, 216);
+  height: 1px;
+  background-color: gray;
   display: flex;
   border-radius: 2px;
   align-items: center;
@@ -31,23 +62,23 @@
 .sign_with_title > p {
   font-size: 0.9rem;
   padding-inline: 5px;
-  background-color: white;
+  background-color: var(--bg-color);
+  color: gray;
 }
 
-.google_btn{
+.google_btn {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background-color: transparent;
-  border: 1px solid;
+  color: inherit;
+  background-color: #262a31;
+  /* background-color: rgb(69, 69, 69); */
+  border: none;
   padding: 3px;
-  border-radius: .2rem;
+  border-radius: 0.2rem;
   cursor: pointer;
 }
-.google_btn p{
-  font-size: 1rem;
-}  
 
 .container .info {
   margin-bottom: 10px;
@@ -61,12 +92,13 @@
 }
 
 .container .redirect {
-  margin-top: 0.5rem;
+  margin: auto;
+  /* margin-top: 0.5rem; */
   font-size: 0.85rem;
 }
 .container .redirect .to {
   padding-left: 0.5rem;
-  color: #6366f1;
+  color: var(--bg-msg-end-color);
 }
 
 .form {
@@ -87,36 +119,34 @@
 }
 
 .form .inpt_file .choose .previewer {
-  width: 60px;
-  aspect-ratio: 1/1;
-  border: 1px solid #848484;
-  border-radius: 50%;
-  overflow: hidden;
+  margin: auto;
+  position: relative;
+}
+.edit_avatar {
+  position: absolute;
+  top: 60%;
+  /* background-color: red; */
+  z-index: 2;
+  left: 99%;
+  fill: white;
+  stroke: white;
+  font-size: 1rem;
+  cursor: pointer;
 }
 .form .inpt_file .choose .previewer img {
-  width: 100%;
-  height: 100%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
   object-fit: cover;
 }
 
 .form .inpt_file .choose .select:hover {
-  color: #6366f1;
+  color: var(--bg-msg-end-color);
 }
+
 .inpt_tag {
   width: 100%;
   position: relative;
-}
-.inpt_tag .input_name {
-  position: absolute;
-  top: 50%;
-  left: 0.5rem;
-  transform: translateY(-50%);
-  font-size: 0.8rem;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  background-color: white;
-  color: grey;
-  pointer-events: none;
-  padding-inline: 0.2rem;
 }
 
 .inpt_tag .showpassword_toggle {
@@ -131,23 +161,31 @@
 .inpt_tag .showpassword_toggle .icon {
   color: grey;
 }
-.inpt_tag .lift {
-  scale: 0.9;
-  top: 0%;
-}
+
 .inpt_tag .inpt {
   width: 100%;
   padding: 0.45rem 0.7rem;
   border-radius: 0.2rem;
-  border: none;
-  border: 1.2px solid #dcdfe4;
-  outline: 1.2px solid white;
+  border: 1px solid transparent;
+
+  /* border: 0.5px solid #dcdfe4; */
+  outline: none;
+
+  /* outline: 0.5px solid white; */
   transition: all 0.5s ease;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  background-color: #262a31;
+  color: white;
+}
+
+.inpt_tag .inpt::placeholder {
+  font-size: 0.9rem;
+  text-transform: capitalize;
 }
 .inpt_tag .inptpass {
   padding-right: 2rem;
 }
+
 .inpt_tag .txt {
   border-radius: 0.5rem;
   width: 100%;
@@ -155,43 +193,34 @@
   width: 100%;
   padding: 0.3rem 0.5rem;
   border-radius: 0.2rem;
-  border: none;
-  border: 1.2px solid #dcdfe4;
-  outline: 1.2px solid white;
+  border: 1px solid transparent;
+
+  /* border: 0.5px solid #dcdfe4; */
+  outline: none;
+  background-color: #262a31;
+  /* outline: 0.5px solid white; */
   transition: all 0.5s ease;
+  color: white;
 }
-.inpt_tag .inpt:focus {
-  border-color: #6366f1;
-  outline-color: #6366f1;
-}
-.inpt_tag .txt:focus {
-  border-color: #6366f1;
-  outline-color: #6366f1;
-}
-
-/* Gender  */
-.form .Gender_container label {
-  margin-right: 7px;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
+.inpt_tag .txt::placeholder {
   font-size: 0.9rem;
-  cursor: pointer;
+  text-transform: capitalize;
 }
 
-.form .Gender_container label:hover {
-  color: #6366f1;
+.inpt_tag .inpt:focus {
+  border: 1px solid var(--bg-msg-end-color);
 }
 
-.form .Gender_container label input {
-  cursor: pointer;
+.inpt_tag .txt:focus {
+  border: 1px solid var(--bg-msg-end-color);
 }
 
 /* btn */
+
 .btn {
   width: 100%;
   border: none;
-  background-color: #6366f1;
+  background-color: var(--bg-msg-end-color);
   color: white;
   height: 2.5rem;
   /* padding: 0.335rem 0.5rem; */
@@ -208,13 +237,14 @@
 
 /* forgot password */
 .form .forgot_password {
-  margin-top: -1rem;
-  font-size: 0.8rem;
+  margin-top: -0.8rem;
+  font-size: 0.75rem;
   margin-left: auto;
-  color: black;
+  color: var(--bg-msg-end-color);
+  /* color: black; */
 }
 .form .forgot_password:hover {
-  color: #6366f1;
+  color: var(--bg-msg-end-color);
 }
 
 /* otp_container */
@@ -222,10 +252,7 @@
 .otp_container {
   width: 23%;
   min-width: 310px;
-  /* min-height: 300px; */
   padding: 2rem;
-  background-color: white;
-  box-shadow: 2px 2px 5px rgb(210, 208, 208), -2px -2px 5px rgb(210, 208, 208);
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -240,13 +267,13 @@
   align-items: center;
 }
 .otp_container .title p:nth-child(1) {
-  color: grey;
+  color: white;
 }
 
 .otp_container .title p:nth-child(2) {
   font-size: 0.9rem;
   font-weight: 500;
-  color: black;
+  color: var(--bg-msg-end-color);
 }
 .otp_container .otp_box {
   width: 30px;
@@ -255,12 +282,12 @@
   font-size: 20px;
   border: none;
   border: 2px solid grey;
-
+  outline: none;
   border-radius: 5px;
   text-align: center;
 }
 .otp_container .otp_box:focus {
-  outline-color: #6366f1;
+  border-color: var(--bg-msg-end-color);
 }
 
 .otp_form {

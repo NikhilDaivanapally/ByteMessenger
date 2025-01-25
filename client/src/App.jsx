@@ -18,33 +18,10 @@ import DirectChat from "./pages/Chat/DirectChat.page";
 import ResetPassword from "./pages/Auth/ResetPassword.page";
 import ProfilePage from "./pages/Profile/Profile.page";
 import { UpdateAuthState } from "./store/slices/authSlice";
+import ToastConfig from "./toastConfig/ToastConfig";
 
 function App() {
   const dispatch = useDispatch();
-
-  // Fetch current logged-in user
-  useEffect(() => {
-    const fetchCurrentLoggedUser = async () => {
-      try {
-        const response = await fetch(
-          "https://byte-messenger-api.onrender.com/api/v1/auth/login/success",
-          {
-            method: "GET",
-            credentials: "include",
-          }
-        );
-
-        const data = await response.json();
-        if (data.status == "success") {
-          dispatch(UpdateAuthState(data.user));
-        }
-      } catch (error) {
-        // console.error("Error fetching logged-in user:", error);
-      }
-    };
-
-    fetchCurrentLoggedUser();
-  }, [dispatch]);
 
   // Handle online/offline status
   useEffect(() => {
@@ -99,6 +76,7 @@ function App() {
           if (data.status !== "success") {
             return redirect("/login");
           }
+          dispatch(UpdateAuthState(data.user));
           return null; // No redirection
         } catch (error) {
           return redirect("/login");
@@ -131,6 +109,7 @@ function App() {
 
   return (
     <div className="App">
+      <ToastConfig />
       <RouterProvider router={router} />
     </div>
   );

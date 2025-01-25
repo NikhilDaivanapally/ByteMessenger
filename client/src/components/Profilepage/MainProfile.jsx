@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { MdEdit } from "react-icons/md";
 import { useUpdateuserMutation } from "../../store/slices/apiSlice";
 import toast from "react-hot-toast";
-import ToastConfig from "../../toastConfig/ToastConfig";
 import AuthLoader from "../AuthLoader/AuthLoader";
 const MainProfile = () => {
   const auth = useSelector((state) => state.auth.user);
@@ -70,7 +69,6 @@ const MainProfile = () => {
 
   return (
     <div className="Profile_Container">
-      <ToastConfig />
       <div className="profile_topSection">
         <MdKeyboardArrowLeft
           className="close_profile"

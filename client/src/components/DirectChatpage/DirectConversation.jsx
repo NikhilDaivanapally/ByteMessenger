@@ -26,7 +26,7 @@ const DirectConversation = () => {
     setConversations(DirectConversations);
   }, [DirectConversations]);
 
-  const hasPinnedConversations = Conversations.some(
+  const hasPinnedConversations = Conversations?.some(
     (el) => el?.pinned == "true"
   );
 
@@ -50,7 +50,7 @@ const DirectConversation = () => {
 
   useEffect(() => {
     const handleStartChat = (data) => {
-      const existing_conversation = DirectConversations.find(
+      const existing_conversation = DirectConversations?.find(
         (el) => el.id === data._id
       );
       if (existing_conversation) {
@@ -76,7 +76,7 @@ const DirectConversation = () => {
       let value = e.target.value.toLowerCase();
       const regex = new RegExp(`^${value?.trim()}`, "i");
       const filteredConversations = value
-        ? DirectConversations.filter((el) => regex.test(el.name.toLowerCase()))
+        ? DirectConversations?.filter((el) => regex.test(el.name.toLowerCase()))
         : DirectConversations;
       setConversations(filteredConversations);
       setSearchvalue(value);
@@ -120,13 +120,13 @@ const DirectConversation = () => {
         <div className="Chats_Container">
           {!OnlineStatus && <ShowOffline />}
           <>
-            {DirectConversations.length > 0 ? (
+            {DirectConversations?.length > 0 ? (
               <>
                 {hasPinnedConversations && (
                   <div className="Pinned_Chats_Container">
                     <p className="title">Pinned</p>
                     <div className="Pinned_Chats">
-                      {Conversations.filter((el) => el.pinned).map(
+                      {Conversations?.filter((el) => el.pinned).map(
                         (chat, index) => {
                           return (
                             <ConversationElement chat={chat} key={index} />
@@ -148,7 +148,7 @@ const DirectConversation = () => {
                     )}
                   </p>
                   <div className="All_Chats">
-                    {Conversations.filter((el) => !el.pinned).map(
+                    {Conversations?.filter((el) => !el.pinned).map(
                       (chat, index) => {
                         return <ConversationElement chat={chat} key={index} />;
                       }

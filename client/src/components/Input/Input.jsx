@@ -5,8 +5,6 @@ const InputField = ({
   name,
   value,
   handleInputChange,
-  handleBlur,
-  handleFocus,
   handleClick = () => {},
   showPassword = false,
 }) => {
@@ -23,12 +21,9 @@ const InputField = ({
             name={name}
             value={value}
             onChange={handleInputChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
+            placeholder={`${name} *`}
+            required={true}
           />
-          <span className="input_name">
-            {name.charAt(0).toUpperCase() + name.slice(1)} *
-          </span>
         </div>
       ) : (
         <div className="inpt_tag">
@@ -38,12 +33,9 @@ const InputField = ({
             name={name}
             value={value}
             onChange={handleInputChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
+            placeholder={`${name} *`}
           />
-          <span className="input_name">
-            {name.charAt(0).toUpperCase() + name.slice(1)} *
-          </span>
+
           <div className="showpassword_toggle" onClick={handleClick}>
             {showPassword ? (
               <IoMdEyeOff className="icon" />

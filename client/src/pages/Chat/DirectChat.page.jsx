@@ -33,7 +33,6 @@ const DirectChat = () => {
           </div>
           <div className={`Current_Chat ${room_id ? "ActiveChat" : ""} `}>
             <Chat />
-
             {(() => {
               switch (sideBar.type) {
                 case "CONTACT":

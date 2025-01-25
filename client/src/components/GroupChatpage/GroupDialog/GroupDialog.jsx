@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import { CgProfile } from "react-icons/cg";
 import { socket } from "../../../socket";
 import { useCreateGroupMutation } from "../../../store/slices/apiSlice";
-import ToastConfig from "../../../toastConfig/ToastConfig";
 import toast from "react-hot-toast";
 import Dialog from "../../Dialog/Dialog";
 import AuthLoader from "../../AuthLoader/AuthLoader";
@@ -140,7 +139,6 @@ const GroupDialog = ({ openDialog, handlecloseDialog }) => {
   };
   return (
     <Dialog onClose={handlecloseDialog}>
-      <ToastConfig />
       <div className="GroupChats_Dialog_Box">
         <div className="TopSection">
           <p>Create New Group</p>

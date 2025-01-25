@@ -23,7 +23,7 @@ const GroupConversations = () => {
     current_group_conversation,
     current_group_messages,
   } = useSelector((state) => state.conversation.group_chat);
-const user = useSelector((state) => state.auth.user)
+  const user = useSelector((state) => state.auth.user);
   const [Conversations, setConversations] = useState(GroupConversations);
   useEffect(() => {
     setConversations(GroupConversations);
@@ -36,7 +36,7 @@ const user = useSelector((state) => state.auth.user)
     setOpenDialog(false);
   };
   // returns true if GroupConversations had an pinned one's else returns false
-  const hasPinnedConversations = Conversations.some(
+  const hasPinnedConversations = Conversations?.some(
     (el) => el.pinned == "true"
   );
 
@@ -62,14 +62,14 @@ const user = useSelector((state) => state.auth.user)
     const handlenewGroupChat = (data) => {
       console.log(data);
 
-      const existing_conversation = GroupConversations.find(
+      const existing_conversation = GroupConversations?.find(
         (el) => el.id === data._id
       );
       if (existing_conversation) {
         dispatch(updateGroupConversation(data));
       } else {
         // add direct conversation
-        dispatch(addGroupConversation({auth:user ,conversation:data}));
+        dispatch(addGroupConversation({ auth: user, conversation: data }));
       }
     };
     socket.on("new_groupChat", handlenewGroupChat);
@@ -80,14 +80,14 @@ const user = useSelector((state) => state.auth.user)
 
   useEffect(() => {
     const handlenewGroupChat = (data) => {
-      const existing_conversation = GroupConversations.find(
+      const existing_conversation = GroupConversations?.find(
         (el) => el.id === data._id
       );
       if (existing_conversation) {
         dispatch(updateGroupConversation(data));
       } else {
         // add direct conversation
-        dispatch(addGroupConversation({auth:user ,conversation:data}));
+        dispatch(addGroupConversation({ auth: user, conversation: data }));
       }
       dispatch(SelectConversation({ room_id: data._id }));
       handlecloseDialog();
@@ -103,7 +103,7 @@ const user = useSelector((state) => state.auth.user)
       let value = e.target.value.toLowerCase();
       const regex = new RegExp(`^${value?.trim()}`, "i");
       const filteredConversations = value
-        ? GroupConversations.filter((el) => regex.test(el.title.toLowerCase()))
+        ? GroupConversations?.filter((el) => regex.test(el.title.toLowerCase()))
         : GroupConversations;
       setConversations(filteredConversations);
       setSearchvalue(value);
@@ -148,13 +148,13 @@ const user = useSelector((state) => state.auth.user)
         <div className="Chats_Container">
           {!OnlineStatus && <ShowOffline />}
           <>
-            {GroupConversations.length > 0 ? (
+            {GroupConversations?.length > 0 ? (
               <>
                 {hasPinnedConversations && (
                   <div className="Pinned_Chats_Container">
                     <p className="title">Pinned</p>
                     <div className="Pinned_Chats">
-                      {Conversations.filter((el) => el.pinned).map(
+                      {Conversations?.filter((el) => el.pinned).map(
                         (chat, index) => {
                           return <Groupchat chat={chat} key={index} />;
                         }
@@ -165,7 +165,7 @@ const user = useSelector((state) => state.auth.user)
                 <div className="All_Chats_Container">
                   <p className="title">Group Messages</p>
                   <div className="All_Chats">
-                    {Conversations.filter((el) => !el.pinned).map(
+                    {Conversations?.filter((el) => !el.pinned).map(
                       (chat, index) => {
                         return <Groupchat chat={chat} key={index} />;
                       }

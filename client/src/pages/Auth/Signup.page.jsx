@@ -12,11 +12,13 @@ import {
   useOtpsubmitMutation,
   useSignupMutation,
 } from "../../store/slices/apiSlice";
-import ToastConfig from "../../toastConfig/ToastConfig";
 import { useDispatch } from "react-redux";
 import { UpdateAuthState } from "../../store/slices/authSlice";
 import InputField from "../../components/Input/Input";
 import AuthLoader from "../../components/AuthLoader/AuthLoader";
+import logo from "../../assests/free-chat-icon-download-in-svg-png-gif-file-formats--bubble-notification-sms-lined-pack-user-interface-icons-431107.png";
+import { MdEdit } from "react-icons/md";
+
 const Signup = () => {
   const dispatch = useDispatch();
   const Navigate = useNavigate();
@@ -31,7 +33,6 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
     about: "",
-    gender: "",
     avatar: null,
   });
   const [otp, setOtp] = useState(new Array(length).fill(""));
@@ -104,7 +105,7 @@ const Signup = () => {
     } else if (otpsubmitError) {
       toast.error(otpsubmitError.data.message);
     }
-  }, [otpsubmitError, otpsubmitData]);
+  }, [otpsubmitError, otpsubmitData, inputRefs.current]);
 
   // handling form submit
   const handleFormSubmit = useCallback(
@@ -115,7 +116,6 @@ const Signup = () => {
         signupFormData.email,
         signupFormData.password,
         signupFormData.confirmPassword,
-        signupFormData.gender,
       ].some((val) => val == "");
 
       if (!testCase) {
@@ -142,7 +142,7 @@ const Signup = () => {
   const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;
     setsignupFormData((prev) => ({ ...prev, [name]: value }));
-    e.target.name !== "gender" && e.target.nextSibling.classList.add("lift");
+    e.target.nextSibling.classList.add("lift");
   }, []);
 
   const handleFileChange = useCallback((e) => {
@@ -208,19 +208,6 @@ const Signup = () => {
     }
   }, []);
 
-  const handleFocus = useCallback(
-    (e) => e.target.nextSibling.classList.add("lift"),
-    []
-  );
-  const handleBlur = useCallback(
-    (e) => {
-      if (!signupFormData[e.target.name]) {
-        e.target.nextSibling.classList.remove("lift");
-      }
-    },
-    [signupFormData]
-  );
-
   const handleGoogleSignup = () => {
     try {
       // Open Google OAuth in a new window
@@ -232,11 +219,14 @@ const Signup = () => {
 
   return (
     <div className="page">
-      {/* Toaster */}
-      <ToastConfig />
+      <div className="brand">
+        <img src={logo} alt="" width={30} />
+        <p className="">Byte Messenger</p>
+      </div>
+
       {!signupData ? (
         <div className="container">
-          <p className="title">Sign Up</p>
+          <p className="title">Create a New Account</p>
           <div className="form">
             {/* file */}
             <div className="inpt_file">
@@ -255,11 +245,23 @@ const Signup = () => {
                     Choose File
                   </label>
                 ) : (
-                  <label>{signupFormData.avatar.name}</label>
+                  ""
+                  // <label>{signupFormData.avatar.name}</label>
                 )}
                 {avatarUrl && (
                   <div className="previewer">
                     <img src={avatarUrl} alt="avatar" />
+                    <label>
+                      <MdEdit className="edit_avatar" />
+                      <input
+                        type="file"
+                        id="select"
+                        name="avatar"
+                        hidden
+                        accept="image/*"
+                        onChange={handleFileChange}
+                      />
+                    </label>
                   </div>
                 )}
               </div>
@@ -273,8 +275,6 @@ const Signup = () => {
                 name={key}
                 value={signupFormData[key]}
                 handleInputChange={handleInputChange}
-                handleFocus={handleFocus}
-                handleBlur={handleBlur}
                 handleClick={() =>
                   setShowpassword({
                     ...showpassword,
@@ -292,41 +292,8 @@ const Signup = () => {
                 name="about"
                 value={signupFormData.about}
                 onChange={handleInputChange}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
+                placeholder="about"
               />
-              <span className="input_name">About</span>
-            </div>
-
-            {/* Gender Section */}
-            <div className="Gender_container">
-              <label>
-                <input
-                  type="radio"
-                  name="gender"
-                  value="male"
-                  onChange={handleInputChange}
-                />
-                Male
-              </label>{" "}
-              <label>
-                <input
-                  type="radio"
-                  name="gender"
-                  value="female"
-                  onChange={handleInputChange}
-                />
-                Female
-              </label>{" "}
-              <label>
-                <input
-                  type="radio"
-                  name="gender"
-                  value="others"
-                  onChange={handleInputChange}
-                />
-                others
-              </label>
             </div>
 
             {/* submit button */}
@@ -341,7 +308,7 @@ const Signup = () => {
             )}
 
             <div className="sign_with_title">
-              <p>or sign up with</p>
+              <p>or</p>
             </div>
             <button className="google_btn" onClick={handleGoogleSignup}>
               <svg width="30" height="30" role="img">
@@ -374,7 +341,6 @@ const Signup = () => {
                   </g>
                 </g>
               </svg>
-              <p>Google</p>
             </button>
           </div>
           <p className="redirect">

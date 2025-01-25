@@ -1,14 +1,12 @@
-// import { faker } from "@faker-js/faker";
 import { createSlice } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
 const initialState = {
   direct_chat: {
-    DirectConversations: [],
+    DirectConversations: null,
     current_direct_conversation: null,
     current_direct_messages: [],
   },
   group_chat: {
-    GroupConversations: [],
+    GroupConversations: null,
     current_group_conversation: null,
     current_group_messages: [],
   },
@@ -20,7 +18,6 @@ const slice = createSlice({
   reducers: {
     // initial conversation adding to the store
     fetchDirectConversations(state, action) {
-      // const auth = JSON.parse(localStorage.getItem("auth_id")) || null;
       const list = action.payload?.conversations?.map((el) => {
         const unreadMssLength = el?.messages.filter(
           (msg) =>
@@ -57,7 +54,6 @@ const slice = createSlice({
       state.direct_chat.DirectConversations = filterList;
     },
     fetchGroupConversations(state, action) {
-      // const auth = JSON.parse(localStorage.getItem("auth_id")) || null;
       const list = action.payload?.conversations?.map((el) => {
         const unreadMssLength = el?.messages?.filter(
           (msg) =>
@@ -124,7 +120,6 @@ const slice = createSlice({
 
     // adding a conversation
     addDirectConversation(state, action) {
-      // const auth = JSON.parse(localStorage.getItem("auth_id")) || null;
       const this_conversation = action.payload.conversation;
       const unreadMssLength = this_conversation?.messages?.filter(
         (msg) =>
@@ -157,8 +152,6 @@ const slice = createSlice({
       });
     },
     addGroupConversation(state, action) {
-      // const auth = JSON.parse(localStorage.getItem("auth_id")) || null;
-
       const this_conversation = action.payload.conversation;
       state.group_chat.GroupConversations =
         state.group_chat.GroupConversations.filter(
@@ -208,7 +201,6 @@ const slice = createSlice({
     },
     fetchCurrentGroupMessages(state, action) {
       const messages = action.payload.messages;
-      // const action?.payload?.auth = JSON.parse(localStorage.getItem("action?.payload?.auth_id")) || null;
       if (messages.length > 0) {
         const formatted_messages = messages?.map((el) => ({
           id: el?._id,
@@ -253,7 +245,6 @@ const slice = createSlice({
     },
     updateDirectMessagesSeen(state, action) {
       let messages = state.direct_chat.current_direct_messages;
-      // console.log(messages, "initial messages");
       let new_messages = messages.map((el) => {
         return { ...el, seen: true };
       });
