@@ -11,17 +11,12 @@
   align-items: center;
   gap: 1rem;
   color: var(--color);
-  /* background-color: green; */
 }
 .Profile_Container .close_profile {
   font-size: 2rem;
   cursor: pointer;
 }
-.Profile_Container .close_profile:hover {
-  background-color: rgb(228, 228, 228);
 
-  border-radius: 50%;
-}
 .Profile_Container .profile_topSection p {
   font-size: 1.3rem;
 }
@@ -31,7 +26,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
 }
 .profile_bottomSection .edit_Profile {
   width: 400px;
@@ -64,9 +58,7 @@
   padding: 0.5rem;
   border-radius: 50%;
 }
-.avatar_edit .edit:hover {
-  background-color: var(--primary-hover);
-}
+
 .update_field {
   width: 100%;
   position: relative;
@@ -112,29 +104,26 @@
   background-color: var(--bg-color);
   color: var(--color);
   border: 1.2px solid #dcdfe4;
-  outline: 1.2px solid #dcdfe4;
+  outline: none;
 
   transition: all 0.5s ease;
 }
 .update_field .inpt:hover,
 .update_field .txt:hover {
-  border-color: #6366f1;
-  outline-color: #6366f1;
+  border-color: var(--bg-msg-end-color);
 }
 .update_field .inpt:focus,
 .update_field .txt:focus {
-  border-color: #6366f1;
-  outline-color: #6366f1;
+  border-color: var(--bg-msg-end-color);
 }
 
 /* btn */
 .update_profileBtn {
   width: 100%;
   border: none;
-  background-color: #6366f1;
+  background-color: var(--bg-msg-end-color);
   color: white;
   height: 2.5rem;
-  /* padding: 0.335rem 0.5rem; */
   border-radius: 0.2rem;
   cursor: pointer;
   transition: scale 0.3s ease-in;
@@ -150,7 +139,6 @@
 .loader {
   width: 3.25em;
   transform-origin: center;
-  /* animation: rotate4 2s linear infinite; */
   scale: 0.8;
 }
 
