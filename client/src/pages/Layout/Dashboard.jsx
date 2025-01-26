@@ -46,8 +46,10 @@ const RootPageLayout = () => {
   const [getConversation, { data: getConversationData }] =
     useGetConversationMutation();
 
-  const [logout, { data: logoutData, error: logoutError }] =
-    useLogoutMutation();
+  const [
+    logout,
+    { isLoading: logoutIsLoading, data: logoutData, error: logoutError },
+  ] = useLogoutMutation();
 
   const { data: friendsData, error: friendsError } = useFriendsQuery();
 
@@ -509,8 +511,30 @@ const RootPageLayout = () => {
                           key={i}
                           onClick={() => handleUserAction(el.text)}
                         >
-                          {el.icon}
-                          <p>{el.text}</p>
+                          {el.text === "logout" ? (
+                            <>
+                              {logoutIsLoading ? (
+                                <svg className="loader" viewBox="20 24 90 40">
+                                  <circle
+                                    className="spin"
+                                    r="15"
+                                    cy="45"
+                                    cx="60"
+                                  ></circle>
+                                </svg>
+                              ) : (
+                                <>
+                                  {el.icon}
+                                  <p>{el.text}</p>
+                                </>
+                              )}
+                            </>
+                          ) : (
+                            <>
+                              {el.icon}
+                              <p>{el.text}</p>
+                            </>
+                          )}
                         </div>
                       );
                     })}
