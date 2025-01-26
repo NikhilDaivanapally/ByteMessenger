@@ -83,9 +83,9 @@
   border-radius: 0.2rem;
   border: none;
   background-color: var(--bg-color);
-  color: var(--color);
+  color: white;
   border: 1.2px solid #dcdfe4;
-  outline: 1.2px solid #dcdfe4;
+  outline: none;
   transition: all 0.5s ease;
   font-size: 0.95rem;
 }
@@ -108,10 +108,7 @@
 
   transition: all 0.5s ease;
 }
-.update_field .inpt:hover,
-.update_field .txt:hover {
-  border-color: var(--bg-msg-end-color);
-}
+
 .update_field .inpt:focus,
 .update_field .txt:focus {
   border-color: var(--bg-msg-end-color);
