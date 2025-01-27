@@ -293,6 +293,8 @@ const RootPageLayout = () => {
       return () => {
         socket.off("new_message", handleNewMsg);
         socket.off("update_msg_status", handleUpdateMsgStatus);
+        socket.off("update_msg_seen", handleUpdateMsgSeen);
+        socket.off("all_msg_seen", handleUpdateAllMsgSeenTrue);
       };
     }
   }, [
