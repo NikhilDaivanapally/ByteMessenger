@@ -43,33 +43,32 @@ const FriendRequest = ({ _id, sender, recipient }) => {
       {sender?._id !== auth_user?._id ? (
         <>
           <div className="img_contatiner">
-            {sender.avatar ? (
-              <img src={sender.avatar} alt="" />
+            {sender?.avatar ? (
+              <img src={sender?.avatar} alt="" />
             ) : (
               <FaUserCircle className="avatar" />
             )}
-            {sender.status && <span className="online_offline"></span>}
+            {sender?.status && <span className="online_offline"></span>}
           </div>
           <div className="info">
-            <p>{sender.userName}</p>
+            <p>{sender?.userName}</p>
           </div>
         </>
       ) : (
         <>
           <div className="img_contatiner">
-            {recipient.avatar ? (
-              <img src={recipient.avatar} alt="" />
+            {recipient?.avatar ? (
+              <img src={recipient?.avatar} alt="" />
             ) : (
               <FaUserCircle className="avatar" />
             )}
-            {recipient.status && <span className="online_offline"></span>}
+            {recipient?.status && <span className="online_offline"></span>}
           </div>
           <div className="info">
-            <p>{recipient.userName}</p>
+            <p>{recipient?.userName}</p>
           </div>
         </>
       )}
-
       <div className="controls">
         {sender?._id !== auth_user?._id ? (
           <>
