@@ -22,12 +22,6 @@ const userSchema = new mongoose.Schema(
         message: (props) => `Email ${props.value} is invalid`,
       },
     },
-    gender: {
-      type: String,
-      // enum: ["male", "female" ,""],
-      // required: [true, "gender is required"],
-    },
-
     password: {
       type: String,
       // required: [true, "Password is required"],
@@ -74,7 +68,7 @@ const userSchema = new mongoose.Schema(
     },
   },
   { timestamps: true }
-); // {timestamps: true} --> give u createdAt , updatedAt fields on doc
+); 
 
 // Hash the passowrd
 userSchema.pre("save", async function (next) {
@@ -138,7 +132,6 @@ userSchema.methods.createPasswordResetToken = async function () {
 
   return resetToken;
 };
-
 
 const User = mongoose.model("User", userSchema);
 export default User;

@@ -37,7 +37,6 @@ ul .bar {
   flex: 1;
   overflow: auto;
   position: relative;
-  /* background-color: red; */
   padding-top: 1rem;
   overflow: scroll;
   overflow-x: hidden;
@@ -139,35 +138,20 @@ ul .bar {
   cursor: pointer;
   transition: all 0.2s ease;
   color: var(--bg-msg-end-color);
-  /* color: #6366f1; */
   text-decoration: underline;
 }
-.user button:hover {
-  background-color: var(--bg-msg-end-color);
-  color: white;
-}
+
 .user .AddTo_friend:active {
   scale: 0.95;
 }
-
-
-
-
-
-
-
 
 @media (max-width: 767px) {
   .Connect_page {
     width: 100%;
     padding-inline: 1.5rem;
-    /* font-size: 0rem; */
   }
   .user {
     width: 100%;
     font-size: 0.8rem;
   }
 }
-
-
-

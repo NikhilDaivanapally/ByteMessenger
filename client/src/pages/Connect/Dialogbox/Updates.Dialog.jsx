@@ -8,9 +8,9 @@ import {
   useUsersQuery,
 } from "../../../store/slices/apiSlice";
 import {
-  updateFriendRequests,
-  updateFriends,
-  updateUsers,
+  fetchFriendRequests,
+  fetchFriends,
+  fetchUsers,
 } from "../../../store/slices/appSlice";
 import Loader from "../../../components/Loader/Loader";
 
@@ -26,7 +26,7 @@ const UsersList = () => {
   useEffect(() => {
     if (isUsersDataSuccess && UsersData.data) {
       // update the store with users data
-      dispatch(updateUsers(UsersData.data));
+      dispatch(fetchUsers(UsersData.data));
     }
   }, [isUsersDataSuccess]);
 
@@ -44,7 +44,7 @@ const UsersList = () => {
           )}
         </>
       ) : (
-        <Loader/>
+        <Loader />
       )}
     </div>
   );
@@ -61,11 +61,12 @@ const FriendsList = () => {
   useEffect(() => {
     if (isFriendsSuccess && FriendsData && FriendsData.data) {
       //  Update the store with users data
-      dispatch(updateFriends(FriendsData.data));
+      dispatch(fetchFriends(FriendsData.data));
     }
   }, [isFriendsSuccess]);
 
   const { friends } = useSelector((state) => state.app);
+  console.log(friends);
   return (
     <div className="users_container">
       {!isFriendsListLoading ? (
@@ -79,7 +80,7 @@ const FriendsList = () => {
           )}
         </>
       ) : (
-        <Loader/>
+        <Loader />
       )}
     </div>
   );
@@ -98,7 +99,7 @@ const RequestList = () => {
   useEffect(() => {
     if (isFriendRequestSuccess && FriendRequestData.data) {
       // update the store with friendRequests data
-      dispatch(updateFriendRequests(FriendRequestData.data));
+      dispatch(fetchFriendRequests(FriendRequestData.data));
     }
   }, [isFriendRequestSuccess]);
 
@@ -116,7 +117,7 @@ const RequestList = () => {
           )}
         </>
       ) : (
-        <Loader/>
+        <Loader />
       )}
     </div>
   );

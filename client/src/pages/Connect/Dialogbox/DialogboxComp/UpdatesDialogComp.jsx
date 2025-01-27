@@ -37,6 +37,7 @@ const User = ({ _id, userName, avatar, socket_id }) => {
 };
 
 const FriendRequest = ({ _id, sender }) => {
+  const auth_user = useSelector((state) => state.auth.user);
   return (
     <div className="user">
       <div className="img_contatiner">
@@ -51,14 +52,20 @@ const FriendRequest = ({ _id, sender }) => {
         <p>{sender.userName}</p>
       </div>
       <div className="controls">
-        <button
-          onClick={() => {
-            socket.emit("accept_friendrequest", { request_id: _id });
-          }}
-        >
-          Accept
-        </button>
-        <button>Reject</button>
+        {sender?._id !== auth_user?._id ? (
+          <>
+            <button
+              onClick={() => {
+                socket.emit("accept_friendrequest", { request_id: _id });
+              }}
+            >
+              Accept
+            </button>
+            <button>Reject</button>
+          </>
+        ) : (
+          <button style={{ cursor: "default" }}>Request Sent</button>
+        )}
       </div>
     </div>
   );

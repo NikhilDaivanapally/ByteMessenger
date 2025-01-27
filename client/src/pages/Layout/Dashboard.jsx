@@ -12,7 +12,14 @@ import {
   useGetConversationMutation,
   useLogoutMutation,
 } from "../../store/slices/apiSlice.js";
-import { setChatType, updateFriends } from "../../store/slices/appSlice.js";
+import {
+  setChatType,
+  fetchFriends,
+  addFriendRequest,
+  removeUserFromUsers,
+  removeRequestFromFriendRequests,
+  addFriend,
+} from "../../store/slices/appSlice.js";
 import {
   addDirectConversation,
   addDirectMessage,
@@ -26,6 +33,7 @@ import {
   updateExistingGroupMessage,
   fetchDirectConversations,
 } from "../../store/slices/conversation.js";
+import AuthLoader from "../../components/AuthLoader/AuthLoader.jsx";
 import { motion, AnimatePresence } from "motion/react";
 import Loader from "../../components/Loader/Loader.jsx";
 import { Navigates } from "../../data/data.jsx";
@@ -88,7 +96,7 @@ const RootPageLayout = () => {
   // update friends data to store
   useEffect(() => {
     if (friendsData && friendsData.data) {
-      dispatch(updateFriends(friendsData.data));
+      dispatch(fetchFriends(friendsData.data));
     } else if (friendsError) {
       console.log("failed to fetch friends");
     }
@@ -136,10 +144,21 @@ const RootPageLayout = () => {
         });
 
       // Set up socket event listeners
-      const handleNewFriendRequest = (data) => toast.success(data.message);
-      const handleRequestAccepted = (data) => toast.success(data.message);
-      const handleRequestSent = (data) => toast.success(data.message);
-
+      const handleNewFriendRequest = (data) => {
+        toast.success(data.message);
+        dispatch(addFriendRequest(data?.friendRequest));
+        dispatch(removeUserFromUsers(data?.user));
+      };
+      const handleRequestAccepted = (data) => {
+        toast.success(data.message);
+        dispatch(removeRequestFromFriendRequests(data?.data));
+        dispatch(addFriend(data?.friend));
+      };
+      const handleRequestSent = (data) => {
+        toast.success(data.message);
+        dispatch(addFriendRequest(data?.friendRequest));
+        dispatch(removeUserFromUsers(data?.user));
+      };
       socket.on("new_friendrequest", handleNewFriendRequest);
       socket.on("friendrequest_accepted", handleRequestAccepted);
       socket.on("friendrequest_sent", handleRequestSent);
@@ -468,6 +487,7 @@ const RootPageLayout = () => {
         <Loader />
       ) : (
         <div className="Layout">
+          {/* <ToastConfig /> */}
           {/* sidebar */}
           <nav className={`navbar ${room_id ? "Disable" : ""}`}>
             <div className="enter_exit_fullscreen" onClick={toggleFullscreen}>

@@ -33,14 +33,33 @@ const Slice = createSlice({
     ResetChatRoomId(state) {
       state.room_id = null;
     },
-    updateUsers(state, action) {
+    fetchUsers(state, action) {
       state.users = action.payload;
     },
-    updateFriends(state, action) {
+    fetchFriends(state, action) {
       state.friends = action.payload;
     },
-    updateFriendRequests(state, action) {
+    fetchFriendRequests(state, action) {
       state.friendRequests = action.payload;
+    },
+    addFriendRequest(state, action) {
+      state.friendRequests = [...state.friendRequests, action.payload];
+    },
+    addFriend(state, action) {
+      console.log(action.payload);
+      state.friends = [...state?.friends, action.payload];
+    },
+    removeUserFromUsers(state, action) {
+      console.log(state?.users, action.payload);
+      state.users = state.users?.filter(
+        (el) => el?._id !== action?.payload?._id
+      );
+    },
+    removeRequestFromFriendRequests(state, action) {
+      console.log(state.friendRequests, action.payload);
+      state.friendRequests = state.friendRequests?.filter(
+        (el) => el?._id !== action?.payload?._id
+      );
     },
     updateOnlineStatus(state, action) {
       state.OnlineStatus = action.payload.status;
@@ -58,12 +77,16 @@ export const {
   toggleSideBar,
   SelectConversation,
   setChatType,
-  updateUsers,
-  updateFriends,
-  updateFriendRequests,
+  fetchUsers,
+  fetchFriends,
+  fetchFriendRequests,
   updateSidebarType,
   ResetChatRoomId,
   updateOnlineStatus,
   updateOpenCamera,
+  addFriendRequest,
+  removeUserFromUsers,
+  removeRequestFromFriendRequests,
+  addFriend,
 } = Slice.actions;
 export default Slice.reducer;

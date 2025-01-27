@@ -1,6 +1,3 @@
-// updateProfile
-
-// import FriendRequest from "../models/friendRequest.js";
 import mongoose from "mongoose";
 import Friendship from "../models/friendship.model.js";
 import { Message } from "../models/message.model.js";
@@ -63,7 +60,6 @@ const getUsers = async (req, res, next) => {
 };
 
 const getFriends = async (req, res, next) => {
-  
   const pipeline = [
     // Match documents where the sender or recipient matches the provided ID
     {
@@ -138,7 +134,14 @@ const getFriends = async (req, res, next) => {
 
 const getFriendrequest = async (req, res, next) => {
   const requests = await Friendship.find({
-    recipient: req.user._id,
+    $or: [
+      {
+        recipient: req.user._id,
+      },
+      {
+        sender: req.user._id,
+      },
+    ],
     status: "pending",
   })
     .select("_id sender")
@@ -314,7 +317,7 @@ const getConversation = async (req, res, next) => {
       conversation = await OneToOneMessage.aggregate([
         {
           $match: {
-            _id:new mongoose.Types.ObjectId(conversationId),
+            _id: new mongoose.Types.ObjectId(conversationId),
           },
         },
         {
@@ -364,7 +367,7 @@ const getConversation = async (req, res, next) => {
       conversation = await OneToManyMessage.aggregate([
         {
           $match: {
-            _id:new mongoose.Types.ObjectId(conversationId),
+            _id: new mongoose.Types.ObjectId(conversationId),
           },
         },
         {

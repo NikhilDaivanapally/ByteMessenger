@@ -109,27 +109,46 @@ io.on("connection", async (socket) => {
   socket.on("friend_request", async (data) => {
     const { sender, recipient } = data;
     // sender
-    const from = await User.findById(sender).select("socket_id");
+    const Sender = await User.findById(sender).select(
+      "_id userName avatar about socket_id"
+    );
     // recipient
-    const to = await User.findById(recipient).select("socket_id");
+    const Recipient = await User.findById(recipient).select(
+      "_id userName avatar about socket_id"
+    );
 
-    await Friendship.create({
+    const friendship = await Friendship.create({
       sender: sender,
       recipient: recipient,
     });
 
-    io.to(to?.socket_id).emit("new_friendrequest", {
+    const FriendRequestData = await Friendship.findById(friendship._id)
+      .select("_id sender")
+      .populate({
+        path: "sender",
+        select: "_id userName avatar status",
+      });
+
+    io.to(Recipient?.socket_id).emit("new_friendrequest", {
       message: "New friend request received",
+      friendRequest: FriendRequestData,
+      user: Sender,
     });
-    io.to(from?.socket_id).emit("friendrequest_sent", {
+    io.to(Sender?.socket_id).emit("friendrequest_sent", {
       message: "Request Sent successfully",
+      friendRequest: FriendRequestData,
+      user: Recipient,
     });
   });
 
   socket.on("accept_friendrequest", async (data) => {
     const request_doc = await Friendship.findById(data.request_id);
-    const sender = await User.findById(request_doc.sender);
-    const receiver = await User.findById(request_doc.recipient);
+    const sender = await User.findById(request_doc.sender).select(
+      "_id userName email about avatar verified status socket_id"
+    );
+    const receiver = await User.findById(request_doc.recipient).select(
+      "_id userName email about avatar verified status socket_id"
+    );
 
     // update the status to accepted
     request_doc.status = "accepted";
@@ -138,9 +157,13 @@ io.on("connection", async (socket) => {
     // emit event to both of them
     io.to(sender?.socket_id).emit("friendrequest_accepted", {
       message: `${receiver.userName} Accepted your Friend Request`,
+      data: request_doc,
+      friend: receiver,
     });
     io.to(receiver?.socket_id).emit("friendrequest_accepted", {
       message: `You Accepted ${sender.userName} Friend Request`,
+      data: request_doc,
+      friend: sender,
     });
   });
 
