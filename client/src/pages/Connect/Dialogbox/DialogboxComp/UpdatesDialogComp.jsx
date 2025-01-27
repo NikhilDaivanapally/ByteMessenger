@@ -36,21 +36,40 @@ const User = ({ _id, userName, avatar, socket_id }) => {
   );
 };
 
-const FriendRequest = ({ _id, sender }) => {
+const FriendRequest = ({ _id, sender, recipient }) => {
   const auth_user = useSelector((state) => state.auth.user);
   return (
     <div className="user">
-      <div className="img_contatiner">
-        {sender.avatar ? (
-          <img src={sender.avatar} alt="" />
-        ) : (
-          <FaUserCircle className="avatar" />
-        )}
-        {sender.status && <span className="online_offline"></span>}
-      </div>
-      <div className="info">
-        <p>{sender.userName}</p>
-      </div>
+      {sender?._id !== auth_user?._id ? (
+        <>
+          <div className="img_contatiner">
+            {sender.avatar ? (
+              <img src={sender.avatar} alt="" />
+            ) : (
+              <FaUserCircle className="avatar" />
+            )}
+            {sender.status && <span className="online_offline"></span>}
+          </div>
+          <div className="info">
+            <p>{sender.userName}</p>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="img_contatiner">
+            {recipient.avatar ? (
+              <img src={recipient.avatar} alt="" />
+            ) : (
+              <FaUserCircle className="avatar" />
+            )}
+            {recipient.status && <span className="online_offline"></span>}
+          </div>
+          <div className="info">
+            <p>{recipient.userName}</p>
+          </div>
+        </>
+      )}
+
       <div className="controls">
         {sender?._id !== auth_user?._id ? (
           <>

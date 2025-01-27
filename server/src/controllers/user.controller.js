@@ -144,9 +144,9 @@ const getFriendrequest = async (req, res, next) => {
     ],
     status: "pending",
   })
-    .select("_id sender")
+    .select("_id sender recipient")
     .populate({
-      path: "sender",
+      path: "sender recipient",
       select: "_id userName avatar status",
     });
   // console.log(requests);
