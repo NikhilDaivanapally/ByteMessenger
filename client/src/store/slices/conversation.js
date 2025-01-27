@@ -144,8 +144,8 @@ const slice = createSlice({
         unread: unreadMssLength?.length,
         seen: this_conversation?.messages?.slice(-1)[0]?.isRead,
         outgoing:
-          this_conversation?.messages?.slice(-1)[0]?.sender.toString() ===
-          action?.payload?.auth?._id.toString(),
+          this_conversation?.messages?.slice(-1)[0]?.sender?.toString() ===
+          action?.payload?.auth?._id?.toString(),
         time: this_conversation?.messages?.slice(-1)[0]?.createdAt || "",
         pinned: false,
         about: user?.about,
