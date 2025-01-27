@@ -274,8 +274,8 @@ const RootPageLayout = () => {
       };
 
       const handleUpdateAllMsgSeenTrue = (conversationId) => {
-        const conversation = direct_chat.DirectConversations.filter(
-          (conv) => conv.id == conversationId
+        const conversation = direct_chat?.DirectConversations?.filter(
+          (conv) => conv?.id == conversationId
         );
         dispatch(
           updateDirectConversation({
@@ -285,7 +285,7 @@ const RootPageLayout = () => {
         );
         dispatch(updateDirectMessagesSeen());
       };
-
+      
       socket.on("new_message", handleNewMsg);
       socket.on("update_msg_status", handleUpdateMsgStatus);
       socket.on("update_msg_seen", handleUpdateMsgSeen);
