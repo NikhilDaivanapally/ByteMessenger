@@ -56,7 +56,7 @@ const ConversationElement = ({ chat }) => {
         );
       }
     }
-  }, [room_id,DirectConversations]);
+  }, [room_id, DirectConversations]);
 
   return (
     <div

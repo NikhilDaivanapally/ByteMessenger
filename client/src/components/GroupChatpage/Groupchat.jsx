@@ -29,6 +29,7 @@ const Groupchat = ({ chat }) => {
         (el) => el.id == id
       );
       if (Number(updateConversation.unread)) {
+        // socket.emit("clear_unread", { conversation_id: id });
         dispatch(
           updateGroupConversation({
             ...updateConversation,
@@ -37,7 +38,7 @@ const Groupchat = ({ chat }) => {
         );
       }
     }
-  }, [room_id, GroupConversations]);
+  }, [GroupConversations, room_id]);
   
   return (
     <div
