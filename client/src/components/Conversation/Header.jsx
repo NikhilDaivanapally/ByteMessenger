@@ -1,22 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { CiSearch } from "react-icons/ci";
-import { IoIosArrowDown } from "react-icons/io";
-import { IoCallOutline, IoVideocamOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { socket } from "../../socket";
-import {
-  ResetChatRoomId,
-  SelectConversation,
-  toggleSideBar,
-} from "../../store/slices/appSlice";
+import { ResetChatRoomId, toggleSideBar } from "../../store/slices/appSlice";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import {
   ResetDirectChat,
   ResetGroupChat,
-  setCurrentDirectConversation,
-  setCurrentDirectMessages,
-  setCurrentGroupConversation,
-  setCurrentGroupMessages,
 } from "../../store/slices/conversation";
 import { GrGroup } from "react-icons/gr";
 
@@ -26,17 +15,13 @@ const Header = () => {
 
   const { room_id, chat_type } = useSelector((state) => state.app);
   const { _id: auth_id } = useSelector((state) => state.auth.user);
-  const {
-    DirectConversations,
-    current_direct_conversation,
-    current_direct_messages,
-  } = useSelector((state) => state.conversation.direct_chat);
+  const { current_direct_conversation } = useSelector(
+    (state) => state.conversation.direct_chat
+  );
 
-  const {
-    GroupConversations,
-    current_group_conversation,
-    current_group_messages,
-  } = useSelector((state) => state.conversation.group_chat);
+  const { current_group_conversation } = useSelector(
+    (state) => state.conversation.group_chat
+  );
 
   // receive the event when typing start and stop
   useEffect(() => {
@@ -59,11 +44,11 @@ const Header = () => {
   };
   const handleGobackToConversation = () => {
     dispatch(ResetChatRoomId());
-    // if (chat_type == "individual") {
-    //   dispatch(ResetDirectChat());
-    // } else {
-    //   dispatch(ResetGroupChat());
-    // }
+    if (chat_type == "individual") {
+      dispatch(ResetDirectChat());
+    } else if (chat_type == "group") {
+      dispatch(ResetGroupChat());
+    }
   };
   return (
     <div className="header">
