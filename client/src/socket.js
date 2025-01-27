@@ -9,7 +9,6 @@ const connectSocket = (auth_id) => {
     });
 
     socket.on("connect", () => {
-      // console.log('connect')
       resolve(socket);
     });
 

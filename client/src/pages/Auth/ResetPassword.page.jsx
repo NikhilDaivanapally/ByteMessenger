@@ -44,7 +44,6 @@ const ResetPassword = () => {
 
   const handleSubmit = useCallback(
     async (e) => {
-      console.log(resetFormData);
       e.preventDefault();
       if (!Object.values(resetFormData).some((val) => val == "")) {
         await resetpass(resetFormData);

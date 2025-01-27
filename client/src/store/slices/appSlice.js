@@ -46,17 +46,14 @@ const Slice = createSlice({
       state.friendRequests = [...state.friendRequests, action.payload];
     },
     addFriend(state, action) {
-      console.log(action.payload);
       state.friends = [...state?.friends, action.payload];
     },
     removeUserFromUsers(state, action) {
-      console.log(state?.users, action.payload);
       state.users = state.users?.filter(
         (el) => el?._id !== action?.payload?._id
       );
     },
     removeRequestFromFriendRequests(state, action) {
-      console.log(state.friendRequests, action.payload);
       state.friendRequests = state.friendRequests?.filter(
         (el) => el?._id !== action?.payload?._id
       );

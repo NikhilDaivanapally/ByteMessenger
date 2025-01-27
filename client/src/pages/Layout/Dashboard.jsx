@@ -107,7 +107,6 @@ const RootPageLayout = () => {
     if (getConversationData) {
       switch (getConversationData.data.messages[0]?.conversationType) {
         case "OneToOneMessage":
-          console.log(getConversationData.data);
           dispatch(
             addDirectConversation({
               auth: user,
@@ -285,7 +284,7 @@ const RootPageLayout = () => {
         );
         dispatch(updateDirectMessagesSeen());
       };
-      
+
       socket.on("new_message", handleNewMsg);
       socket.on("update_msg_status", handleUpdateMsgStatus);
       socket.on("update_msg_seen", handleUpdateMsgSeen);

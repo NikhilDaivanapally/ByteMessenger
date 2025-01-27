@@ -101,7 +101,6 @@ const sendOTP = async (req, res) => {
       message: "OTP sent successfully!",
     });
   } catch (error) {
-    console.error("Error sending OTP:", error);
     res.status(500).json({
       status: "error",
       message: "Failed to send OTP",
@@ -113,7 +112,6 @@ const sendOTP = async (req, res) => {
 const verifyOTP = async (req, res, next) => {
   //otp needs to be a string
   const { email, otp } = req.body;
-  console.log(otp, email);
   const user = await User.findOne({
     email,
     otp_expiry_time: { $gt: Date.now() },
@@ -249,7 +247,6 @@ const forgotpassword = async (req, res, next) => {
 // resetpassword
 const resetpassword = async (req, res, next) => {
   // Get the token from the url using query
-  // console.log(req.query)
   const { token } = req.query;
   const { NewPassword, confirmNewPassword } = req.body;
 

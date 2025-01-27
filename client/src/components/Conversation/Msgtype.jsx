@@ -188,7 +188,6 @@ const AudioMsg = ({ el }) => {
       });
 
       waveSurferRef.current.on("finish", () => {
-        console.log("audio finished");
         setIsPlaying(false);
       });
 

@@ -38,9 +38,7 @@ const MainProfile = () => {
 
   const handleSubmitupdateuserData = async () => {
     let testCase = Object.values(updateuserData).filter((val) => val);
-    console.log(testCase);
     if (testCase.length > 0) {
-      console.log("test case pass");
       const data = new FormData();
       for (let key in updateuserData) {
         if (updateuserData[key]) {

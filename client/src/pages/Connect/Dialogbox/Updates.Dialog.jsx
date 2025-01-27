@@ -66,7 +66,6 @@ const FriendsList = () => {
   }, [isFriendsSuccess]);
 
   const { friends } = useSelector((state) => state.app);
-  console.log(friends);
   return (
     <div className="users_container">
       {!isFriendsListLoading ? (

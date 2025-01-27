@@ -45,7 +45,6 @@ const Header = () => {
       setIstyping(userName);
     });
     socket.on("Is_Stop_Typing", () => {
-      // console.log("NonTyping");
       setIstyping("");
     });
 

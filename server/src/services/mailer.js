@@ -30,11 +30,8 @@ const sendMail = ({ to, subject, text, html, attachments = [] }) => {
   return new Promise((resolve, reject) => {
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        console.error("Mailing error:", error); // Improved error logging
         reject(error); // Reject with actual error
       } else {
-        console.log("Message sent: %s", info.messageId);
-        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
         resolve(true);
       }
     });

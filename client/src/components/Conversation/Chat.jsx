@@ -274,7 +274,6 @@ const Chat = () => {
     (el) => el?.id == fullImagePreview?.id
   );
   const handleChangeImage = (e) => {
-    console.log(e);
     switch (true) {
       case e.target.classList.contains("prev") ||
         e.target.parentElement.classList.contains("prev"):
@@ -365,7 +364,6 @@ const Chat = () => {
   useEffect(() => {
     if (openCamera && CameraRef.current) {
       handleStreamOpenCameraData();
-      console.log("Camera open");
     }
   }, [openCamera]);
 

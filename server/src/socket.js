@@ -402,7 +402,6 @@ io.on("connection", async (socket) => {
     });
 
     uploadStream.on("error", (err) => {
-      console.error("Upload error:", err);
       socket.emit("uploadError", "Error storing audio");
     });
   });

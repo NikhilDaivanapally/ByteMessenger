@@ -215,7 +215,6 @@ const Footer = ({ setIsNonTextmsg, isNonTextmsg }) => {
   }, [canvasRef.current]);
 
   const setupAudioVisualization = (stream) => {
-    console.log(canvasRef.current);
     const audioContext = new window.AudioContext();
     const analyser = audioContext.createAnalyser();
     const source = audioContext.createMediaStreamSource(stream);
@@ -340,20 +339,9 @@ const Footer = ({ setIsNonTextmsg, isNonTextmsg }) => {
     if (!recordingState && AudioChucksRef.current.length > 0) {
       const audioBlob = new Blob(AudioChucksRef.current, { type: "audio/wav" });
       const url = URL.createObjectURL(audioBlob);
-      console.log(audioBlob, url);
       setAudioUrl(url);
     }
   }, [AudioChucksRef.current, recordingState]);
-
-  // const handlePlayAudioTimeUpdate = () => {
-  //   console.log(audioRef.current.currentTime);
-  //   setCurrentTime(audioRef.current.currentTime);
-  // };
-
-  // const handleAudioOnEnd = () => {
-  //   setIsPlaying(false);
-  //   setCurrentTime(0);
-  // };
 
   const handlePlayPauseAudio = () => {
     if (audioRef.current.paused) {

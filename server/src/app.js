@@ -51,7 +51,6 @@ app.set("trust proxy", 1); // `1` for one level of proxy (e.g., Vercel)
 
 app.get("/api/audio/:id", (req, res) => {
   const fileId = req.params.id;
-  console.log("Received fileId:", fileId);
 
   try {
     // Convert string ID to ObjectId
@@ -59,19 +58,16 @@ app.get("/api/audio/:id", (req, res) => {
     const downloadStream = gridFSBucket.openDownloadStream(objectId);
 
     res.set("Content-Type", "audio/webm"); // Adjust MIME type if necessary
-    console.log("Download stream found");
     downloadStream.pipe(res);
 
     downloadStream.on("error", (err) => {
-      console.error("Error in download stream:", err.message);
       res.status(404).send({ error: "Audio not found", details: err.message });
     });
 
-    res.on("finish", () => {
-      console.log("Audio served successfully.");
-    });
+    // res.on("finish", () => {
+    //   console.log("Audio served successfully.");
+    // });
   } catch (err) {
-    console.error("Error handling request:", err.message);
     res.status(400).send({ error: "Invalid audio ID", details: err.message });
   }
 });

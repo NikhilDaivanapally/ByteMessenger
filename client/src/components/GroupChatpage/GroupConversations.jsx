@@ -60,7 +60,6 @@ const GroupConversations = () => {
   }, [current_group_messages]);
   useEffect(() => {
     const handlenewGroupChat = (data) => {
-      console.log(data);
 
       const existing_conversation = GroupConversations?.find(
         (el) => el.id === data._id
